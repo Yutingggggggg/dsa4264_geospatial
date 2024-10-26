@@ -9,6 +9,7 @@ Last updated on {last updated date}
 *In this section, you should explain how this project came about. Retain all relevant details about the project’s history and context, especially if this is a continuation of a previous project.*
 
 *If there are any slide decks or email threads that started before this project, you should include them as well.*
+In recent years, the launch of new Mass Rapid Transit (MRT) lines, such as the Downtown Line and the Thomson-East Coast line, has resulted in a decline in the ridership of trunk services. Trunk services are long bus routes that connect different neighbourhoods across Singapore. Relying on trunk services to get to a destination usually takes longer and is generally less predictable. Hence, the Land Transport Authority (LTA) wishes to streamline Singapore's public transport options and encourage commuters to use the new MRT lines, instead of continuing to rely on trunk services.
 
 ## Section 2: Scope
 
@@ -17,12 +18,22 @@ Last updated on {last updated date}
 *In this subsection, you should explain what is the key business problem that you are trying to solve through your data science project. You should aim to answer the following questions:*
 
 * *What is the problem that the business unit faces? Be specific about who faces the problem, how frequently it occurs, and how it affects their ability to meet their desired goals.*
+The Ministry of Transport's (MOT) Land Division, specifically the Public Transportation team, is in charge of examining the overall planning for public tranportation routes and to find ways to optimise them for cost and coverage. Due to budget constraints, failing to optimise Singapore's bus routes could lead to the team being unable to finance other bus routes in Singapore that better meet the commuters' needs.
+
 * *What is the significance or impact of this problem? Provide tangible metrics that demonstrate the cost of not addressing this problem.*
+
+
 * *Why is data science / machine learning the appropriate solution to the problem?*
+
+Manually identifying which bus routes have enough "overlap" with MRT lines is imprecise and time-consuming. Data science / machine learning can be used to systematically and efficiently identify which trunk services overlap, and to what extent, with MRT lines. This analysis could also be extended to future lines that are being released, such as the Jurong Region Line.
 
 ### 2.2 Success Criteria
 
 *In this subsection, you should explain how you will measure or assess success for your data science project. You need to specify at least 2 business and/or operational goals that will be met if this project is successful. Business goals directly relate to the business’s objectives, such as reduced fraud rates or improved customer satisfaction. Operational goals relate to the system’s needs, such as better reliability, faster operations, etc.*
+
+Success would be identifying at least 2 to 3 routes that can be either entirely removed, or partially rerouted, to better streamline public transportation operations, which would enable the MOT's Public Transportation team to free up funding for 3 proposed bus routes that are needed in response to public demand.
+
+(need to include metrics on how to evaluate whether a route should be re-routed & how a new route is decided)
 
 ### 2.3 Assumptions
 
@@ -45,6 +56,8 @@ Last updated on {last updated date}
 
 *In this subsection, you should provide a clear and detailed explanation of how your data is collected, processed, and used. Some specific parts you should explain are:*
 * *Collection: What datasets did you use and how are they collected?*
+Our datasets are retrieved from LTA Datamall.
+
 * *Cleaning: How did you clean the data? How did you treat outliers or missing values?*
 * *Features: What feature engineering did you do? Was anything dropped?*
 * *Splitting: How did you split the data between training and test sets?*
