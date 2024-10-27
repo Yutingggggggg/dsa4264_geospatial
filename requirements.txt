@@ -5,4 +5,5 @@ folium
 osmnx 
 matplotlib 
 requests 
-
+tqdm
+nbformat
