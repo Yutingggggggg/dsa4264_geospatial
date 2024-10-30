@@ -2,10 +2,8 @@
 
 ## Problem 1: Geospatial
 
-## Setting up the repository
-1. Run `python -m venv venv` to create your virtual environment
-2. Run `source venv/bin/activate` to activate the virtual environment
-3. Run `pip install -r requirements.txt` to install the full list of requirements
+## Setting up environment
+Run `pip install -r requirements.txt` to install the full list of requirements
 
 ## Code notebooks
 
