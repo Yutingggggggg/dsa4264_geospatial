@@ -1,15 +1,16 @@
 # Technical Report
 
-**Project: {insert project name}**  
-**Members: {insert project members}**  
-Last updated on {last updated date}
+**Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimizations**  
+**Members: Jiya, Ko-shyan, Choo Jin Yi, Yu Ting, Kai Lin**  
+Last updated on 30/10/2024
 
 ## Section 1: Context
 
 *In this section, you should explain how this project came about. Retain all relevant details about the project’s history and context, especially if this is a continuation of a previous project.*
 
 *If there are any slide decks or email threads that started before this project, you should include them as well.*
-In recent years, the launch of new Mass Rapid Transit (MRT) lines, such as the Downtown Line and the Thomson-East Coast line, has resulted in a decline in the ridership of trunk services. Trunk services are long bus routes that connect different neighbourhoods across Singapore. Relying on trunk services to get to a destination usually takes longer and is generally less predictable. Hence, the Land Transport Authority (LTA) wishes to streamline Singapore's public transport options and encourage commuters to use the new MRT lines, instead of continuing to rely on trunk services.
+
+In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services—long routes that connect various neighborhoods across Singapore. These trunk services tend to be slower and less predictable than MRT travel. To improve efficiency and optimize resources, the Land Transport Authority (LTA) is seeking to streamline Singapore's public transport options by encouraging commuters to transition to these new MRT lines instead of relying on overlapping bus routes. This project was initiated to identify bus routes that closely parallel MRT lines, allowing LTA to prioritize potential adjustments for cost-effectiveness and enhanced commuter experience.
 
 ## Section 2: Scope
 
@@ -18,28 +19,52 @@ In recent years, the launch of new Mass Rapid Transit (MRT) lines, such as the D
 *In this subsection, you should explain what is the key business problem that you are trying to solve through your data science project. You should aim to answer the following questions:*
 
 * *What is the problem that the business unit faces? Be specific about who faces the problem, how frequently it occurs, and how it affects their ability to meet their desired goals.*
-The Ministry of Transport's (MOT) Land Division, specifically the Public Transportation team, is in charge of examining the overall planning for public tranportation routes and to find ways to optimise them for cost and coverage. Due to budget constraints, failing to optimise Singapore's bus routes could lead to the team being unable to finance other bus routes in Singapore that better meet the commuters' needs.
+
+The Ministry of Transport’s (MOT) Land Division, specifically the Public Transportation team, is responsible for overseeing the planning and optimization of public transportation routes in Singapore. Due to budget constraints, it’s crucial for the team to ensure that public transport resources are allocated efficiently. However, the introduction of new MRT lines, such as the Downtown Line and Thomson-East Coast Line, has resulted in decreased ridership on certain trunk bus services, which are long bus routes connecting various neighborhoods across Singapore. These services are now underutilized, as commuters prefer the faster and more predictable MRT options.
+
 
 * *What is the significance or impact of this problem? Provide tangible metrics that demonstrate the cost of not addressing this problem.*
+
+The challenge facing the Public Transportation team is to identify and streamline bus routes that significantly overlap with MRT lines. Failing to optimize these bus routes will lead to wasted resources, limiting the team's ability to finance new routes that could better serve unmet commuter needs. If left unaddressed, this inefficiency could result in a misallocation of MOT’s limited budget, potentially impacting the overall effectiveness of Singapore’s public transport system.
 
 
 * *Why is data science / machine learning the appropriate solution to the problem?*
 
-Manually identifying which bus routes have enough "overlap" with MRT lines is imprecise and time-consuming. Data science / machine learning can be used to systematically and efficiently identify which trunk services overlap, and to what extent, with MRT lines. This analysis could also be extended to future lines that are being released, such as the Jurong Region Line.
+Data science offers a systematic and efficient solution to this problem. Manually identifying overlapping routes is imprecise and time-consuming, whereas data science enables us to analyze large-scale route data and quantify the extent of overlap between bus and MRT services. By leveraging data science techniques, we can rapidly identify routes worth reviewing for potential adjustments. This approach is scalable and can also be applied to assess future MRT lines, such as the Jurong Region and Cross Island Line, ensuring that the public transport network remains cost-effective and responsive to commuter needs.
+
 
 ### 2.2 Success Criteria
 
 *In this subsection, you should explain how you will measure or assess success for your data science project. You need to specify at least 2 business and/or operational goals that will be met if this project is successful. Business goals directly relate to the business’s objectives, such as reduced fraud rates or improved customer satisfaction. Operational goals relate to the system’s needs, such as better reliability, faster operations, etc.*
 
-Success would be identifying at least 2 to 3 routes that can be either entirely removed, or partially rerouted, to better streamline public transportation operations, which would enable the MOT's Public Transportation team to free up funding for 3 proposed bus routes that are needed in response to public demand.
+*(need to include metrics on how to evaluate whether a route should be re-routed & how a new route is decided)*
 
-(need to include metrics on how to evaluate whether a route should be re-routed & how a new route is decided)
+Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation and meet public demand in underserved areas.
+
+<b>Business Goal</b>: Identify 2 to 3 bus routes with significant overlap with MRT lines that can be partially rerouted or adjusted. This will allow MOT to free up funding and redirect resources toward implementing 3 proposed bus routes in areas with unmet commuter demand.
+
+<b>Operational Goal</b>: Streamline public transport by eliminating redundancy and ensuring that re-routed or adjusted bus services still maintain commuter convenience without creating significant disruption. This will be assessed by:
+
+* <b> Route Overlap Distance </b>: Using geospatial analysis, calculate the overlap distance of each bus route within a 150-meter buffer around MRT lines. Routes with the highest overlap distances will be prioritized for review as they represent the most redundant services.
+
+* <b> Alternative Access Feasibility </b>: For each route identified, evaluate the accessibility and convenience of alternative transport options, such as other bus routes or MRT stations. Adjustments will only be recommended if these alternatives are reasonably convenient, minimizing impact on commuter experience.
+
+Meeting these criteria will demonstrate that the project has successfully provided actionable insights for MOT and LTA to optimize Singapore’s public transportation system effectively.
+
 
 ### 2.3 Assumptions
 
 *In this subsection, you should set out the key assumptions for this data science project that, if changed, will affect the problem statement, success criteria, or feasibility. You do not need to detail out every single assumption if the expected impact is not significant.*
 
 *For example, if we are building an automated fraud detection model, one important assumption may be whether there is enough manpower to review each individual decision before proceeding with it.*
+
+This project is based on several key assumptions, each of which affects the problem definition, success criteria, and feasibility of our analysis. These assumptions include:
+
+* <b> Data Availability and Accuracy </b> : LTA Datamall data on bus routes and Kaggle data on MRT lines provide sufficient accuracy and detail to identify significant overlap. Since we lack access to internal ridership data, our analysis will depend solely on spatial proximity between bus routes and MRT lines as an indicator of redundancy.
+
+* <b> Public Responsiveness to Adjustments </b>: Public will adjust to recommended bus route changes without significant backlash if the adjustments are communicated clearly and effective alternative transport options are available. However, past experiences with route adjustments indicate a risk of public dissatisfaction, which could impact the feasibility of proposed changes.
+
+* <b> Alternative Transport Accessibility </b>: Alternative MRT or bus services are reasonably accessible for routes identified for potential adjustment. Any significant gaps in alternative access would alter the feasibility of rerouting recommendations, as they could reduce commuter convenience.
 
 ## Section 3: Methodology
 
