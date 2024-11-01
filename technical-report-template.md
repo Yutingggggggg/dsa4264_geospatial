@@ -1,8 +1,8 @@
 # Technical Report
 
 **Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimizations**  
-**Members: Jiya, Ko-shyan, Choo Jin Yi, Yu Ting, Kai Lin**  
-Last updated on 30/10/2024
+**Members: Jiya, Ko-shyan, Choo Jin Yi, Kang Yu Ting, Kai Lin**  
+Last updated on 1/11/2024
 
 ## Section 1: Context
 
@@ -41,7 +41,7 @@ Data science offers a systematic and efficient solution to this problem. Manuall
 
 Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation and meet public demand in underserved areas.
 
-<b>Business Goal</b>: Identify 2 to 3 bus routes with significant overlap with MRT lines that can be partially rerouted or adjusted. This will allow MOT to free up funding and redirect resources. 
+<b>Business Goal</b>: Identify 2 to 3 bus routes with significant overlap with MRT lines that can be partially rerouted or adjusted. This will allow MOT to free up funding and redirect resources toward implementing 3 proposed bus routes in areas with unmet commuter demand.
 
 <b>Operational Goal</b>: Streamline public transport by eliminating redundancy and ensuring that re-routed or adjusted bus services still maintain commuter convenience without creating significant disruption. This will be assessed by:
 
@@ -80,12 +80,44 @@ This project is based on several key assumptions, each of which affects the prob
 ### 3.2 Data
 
 *In this subsection, you should provide a clear and detailed explanation of how your data is collected, processed, and used. Some specific parts you should explain are:*
-* *Collection: What datasets did you use and how are they collected?*
-Our datasets are retrieved from LTA Datamall.
 
-* *Cleaning: How did you clean the data? How did you treat outliers or missing values?*
-* *Features: What feature engineering did you do? Was anything dropped?*
-* *Splitting: How did you split the data between training and test sets?*
+#### **3.2.1 Collection** 
+(What datasets did you use and how are they collected?)
+
+Our datasets are retrieved from the Land Transport Authority (LTA) Datamall API, utilising the following endpoints:
+
+* `Bus Services`: Retrieved detailed service information for all buses currently in operation.
+* `Bus Routes`: Retrieved detailed route information for all services currently in operation.
+* `Bus Stops`: Retrieved detailed information for all bus stops currently being serviced by buses.
+* `Train Station`: Retrieved a point representation to indicate the location of the MRT station.
+* `Train Station Exits`: Retrieved a point representation to indicate the location of a train station exit point.
+
+
+#### **3.2.2 Cleaning** 
+How did you clean the data? How did you treat outliers or missing values?
+
+- **Geospatial Transformation:** We converted the `Bus Stops` and `Bus Routes` datasets into geospatial data frames (`bus_stops_gdf` and `bus_routes_gdf`) using GeoPandas, defining geometries based on longitude and latitude for each stop. For MRT station exits, we read in spatial data from the `TrainStationExit` shapefile as `train_station_exits_gdf`, allowing us to map out all station exit points.
+
+- **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations.
+
+#### **3.2.3 Features** 
+What feature engineering did you do? Was anything dropped?
+
+* `bus_route_combined` : We aggregated bus stops into continuous route lines using the LineString function. We grouped the bus stops based on their ServiceNo (bus service number) and Direction (route direction) attributes to ensure each route was represented as a single, uninterrupted geometry. 
+
+* `mrt_stations_gdf_3857` : GeoDataFrame containing the locations and attributes of MRT stations transformed to the EPSG:3857 coordinate reference system. [KIV]
+
+* `mrt_stations_3857_2` : Contains `Line` column for MRT stations, which can be used for filtering. [KIV]
+
+#### **3.2.4 Splitting** [might consider deleting this section]
+How did you split the data between training and test sets?
+
+#### **3.2.4 Data Analysis** 
+
+* `nearest_train_stations` **Nearest MRT Station Calculation** : 
+For each bus stop, the distance to all MRT station exits was computed using GeoPandas distance calculations. By identifying the nearest MRT station for each stop, we captured each bus stop’s proximity to the MRT network, providing insight into potential redundancies between bus and MRT routes.
+
+* `bus_stops_with_mrt` : Bus stops within a 150-meter radius of any MRT station exit were selected, identifying the areas where bus routes closely parallel MRT lines. These bus stops were flagged as MRT-proximal, allowing for a refined analysis of routes with the greatest overlap.
 
 ### 3.3 Experimental Design
 
@@ -93,6 +125,19 @@ Our datasets are retrieved from LTA Datamall.
 * *Algorithms: Which ML algorithms did you choose to experiment with, and why?*
 * *Evaluation: Which evaluation metric did you optimise and assess the model on? Why is this the most appropriate?*
 * *Training: How did you arrive at the final set of hyperparameters? How did you manage imbalanced data or regularisation?*
+
+#### **Overlap Distance Calculation with MRT Stations**
+
+
+`brown_line_route` : LineString object is constructed from the centroid coordinates of the brown line stations, representing the overall route of the Thomson-East Coast Line.
+
+`buffered_brown_line` : A buffer of 100 meters is applied to the    `brown_line_route` which broadens the line for intersection analysis with bus routes.
+
+`overlap_distance_brown`: GeoDataFrame that contains a list of overlap distances converted from `overlap_distance_output_brown`, which calculates the intersection between the buffered brown line and each bus route geometry. The result includes bus service number, direction, overlap distance, MRT line name, and intersection geometry.
+
+`bus_routes_overlap`: GeoDataFrame which include only those bus routes with a positive overlap distance with the brown line, sorting the results in descending order based on the overlap distance.
+
+We did the same for the other MRT lines such as Downtown Line, North-East Line, East-West Line, Circle Line and North-South Line.
 
 ## Section 4: Findings
 
