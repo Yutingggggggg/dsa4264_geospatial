@@ -1,0 +1,9 @@
+workingfiles/**
+
+# Allow .ipynb files
+!*.ipynb
+
+# Ignore API keys 
+*api_key*
+*API_KEY*
+*.env
