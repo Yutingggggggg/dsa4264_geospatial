@@ -30,8 +30,11 @@ The challenge facing the Public Transportation team is to identify and streamlin
 
 * *Why is data science / machine learning the appropriate solution to the problem?*
 
-Data science offers a systematic and efficient solution to this problem. Manually identifying overlapping routes is imprecise and time-consuming, whereas data science enables us to analyze large-scale route data and quantify the extent of overlap between bus and MRT services. By leveraging data science techniques, we can rapidly identify routes worth reviewing for potential adjustments. This approach is scalable and can also be applied to assess future MRT lines, such as the Jurong Region and Cross Island Line, ensuring that the public transport network remains cost-effective and responsive to commuter needs.
+Data science provides an efficient and systematic solution to identifying route redundancies within Singapore’s complex transport network. Manually analyzing bus and MRT overlaps would be both time-consuming and prone to error. By using data science techniques, we can process large-scale geospatial data to accurately calculate overlap distances within defined buffer zones, allowing us to quantify which bus routes duplicate MRT lines and to what extent.
 
+This approach not only provides clear, data-driven insights for potential route adjustments but also allows us to incorporate factors like accessibility of alternative routes and commuter convenience into our recommendations. This leads to more balanced, informed decisions that prioritize commuter needs.
+
+Furthermore, data science ensures scalability and adaptability. As Singapore’s MRT network expands with new lines like the Jurong Region and Cross Island Lines, the same data-driven approach can be readily applied to assess overlaps, ensuring that our public transport system remains optimized, cost-effective, and responsive to future commuter demands.
 
 ### 2.2 Success Criteria
 
@@ -41,7 +44,7 @@ Data science offers a systematic and efficient solution to this problem. Manuall
 
 Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation and meet public demand in underserved areas.
 
-<b>Business Goal</b>: Identify 2 to 3 bus routes with significant overlap with MRT lines that can be partially rerouted or adjusted. This will allow MOT to free up funding and redirect resources.
+<b>Business Goal</b>: Identify 2 bus routes with significant overlap with MRT lines that can be partially rerouted or adjusted. This will allow MOT to free up funding and redirect resources.
 
 <b>Operational Goal</b>: Streamline public transport by eliminating redundancy and ensuring that re-routed or adjusted bus services still maintain commuter convenience without creating significant disruption. This will be assessed by:
 
