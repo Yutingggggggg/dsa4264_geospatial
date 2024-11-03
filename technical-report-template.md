@@ -80,6 +80,35 @@ This project is based on several key assumptions, each of which affects the prob
 * *What the key hypotheses of interest are*
 * *What the data quality is like (especially if incomplete / unreliable)*
 
+#### 1. Definition of Key Variables and Terms
+   - **Overlap Distance**: Defined as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line.
+   - **Buffer Zone**: A 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes.
+   - **Redundant Route**: Defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
+
+#### 2. Features Available / Unavailable
+   - **Available Features**:
+     - Geospatial data on MRT line routes and stations, sourced from LTA DataMall and Kaggle.
+     - Bus stop locations for each bus route, sourced from LTA DataMall.
+   - **Unavailable Features**:
+     - Specific path data for each bus route, as the LTA DataMall provides only bus stop locations but not the exact routes connecting them.
+     - Ridership data for specific bus routes, which would allow for a more nuanced understanding of demand and usage patterns.
+     - Real-time traffic and congestion data, which could impact route efficiency and commuter travel time.
+
+#### 3. Computational Resources
+   - **Environment**: The analysis was conducted on a standard CPU-based setup, which limited the processing power available for large-scale geospatial computations.
+   - **Memory Constraints**: Limited RAM availability constrained the size of datasets that could be processed simultaneously, necessitating data sampling and batch processing for large-scale analyses.
+   - **Software Tools**: GIS (Geographic Information System) libraries in Python, such as GeoPandas, were used for spatial calculations, and these libraries were constrained by available local processing power.
+
+#### 4. Key Hypotheses of Interest
+   - **Hypothesis 1**: Bus routes with high overlap distances are likely redundant with MRT lines and may be candidates for rerouting or partial removal.
+   - **Hypothesis 2**: A buffer zone of 150 meters is adequate to capture meaningful overlap that would impact commuter convenience or route redundancy.
+   - **Hypothesis 3**: Alternative routes or transit options are available for redundant bus routes, which minimizes the impact on commuter access if these routes are adjusted.
+
+#### 5. Data Quality and Limitations
+   - **Completeness**: The data from LTA DataMall and Kaggle provided comprehensive route details but lacked specific path data for bus routes. Since only bus stop locations were available, we approximated each bus route by connecting sequential bus stops in a straight line.
+   - **Timeliness**: The datasets from LTA DataMall are as of July 2024. They do not account for temporary route diversions or construction, which could affect the real-world application of the analysis.
+   - **Accuracy**: Geospatial precision is assumed to be high, but any minor inaccuracies in the mapping of routes may slightly affect the calculated overlap distance.
+
 ### 3.2 Data
 
 *In this subsection, you should provide a clear and detailed explanation of how your data is collected, processed, and used. Some specific parts you should explain are:*
@@ -149,6 +178,8 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 *In this subsection, you should report the results from your experiments in a summary table, keeping only the most relevant results for your experiment (ie your best model, and two or three other options which you explored). You should also briefly explain the summary table and highlight key results.*
 
 *Interpretability methods like LIME or SHAP should also be reported here, using the appropriate tables or charts.*
+
+
 
 ### 4.2 Discussion
 
