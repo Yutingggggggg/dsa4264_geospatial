@@ -2,7 +2,7 @@
 
 **Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimizations**  
 **Members: Jiya, Ko-shyan, Choo Jin Yi, Kang Yu Ting, Kai Lin**  
-Last updated on 1/11/2024
+Last updated on 4/11/2024
 
 ## Section 1: Context
 
@@ -181,14 +181,58 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 
 
 
+### Summary Table
+
+| Bus Route | Overlap Distance (m) | Recommended Action | Alternative Route Availability      |
+|-----------|-----------------------|---------------------|-------------------------------------|
+| Bus 67    |16091.46              | Remove Segment     | MRT Downtown Line, Bus 170          |
+| Bus 170   | 13688.14                 | Retain             | MRT Downtown Line, Bus 67        |
+| Bus 63  | 12987.28               | Partial Reroute    | MRT East-West Line               |
+
+The Summary Table shows the overlap distances for bus routes with top few MRT overlap, along with recommended actions. For instance, Bus 67 has a large overlap with the Downtown Line and Bus 170, so we recommend removing its overlapping segment while retaining Bus 170 to serve stops between MRT stations. Routes with limited alternative coverage, like Bus 63, are partially rerouted to balance efficiency and commuter access.  (to edit) 
+
 ### 4.2 Discussion
 
 *In this subsection, you should discuss what the results mean for the business user – specifically how the technical metrics translate into business value and costs, and whether this has sufficiently addressed the business problem.*
 
 *You should also discuss or highlight other important issues like interpretability, fairness, and deployability.*
 
+#### Business Value of Results
+
+The overlap analysis between bus routes and MRT lines provides actionable insights to optimize the public transport network. By adjusting redundant routes like Bus 67 and potentially Bus 63, we can achieve:
+
+- **Cost Savings**: Reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas.
+- **Improved Network Efficiency**: Streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage.
+- **Alignment with Commuter Needs**: By selectively retaining key routes (e.g., Bus 170) that serve stops between MRT stations, we maintain accessibility for commuters without unnecessary redundancy.
+
+This data-driven approach addresses the business goal of optimizing the network in a cost-effective and efficient way.
+
+#### Key Issues
+
+1. **Interpretability**: The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify.
+   
+2. **Fairness**: Adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport.
+
+3. **Deployability**: Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs.
+
 ### 4.3 Recommendations
 
 *In this subsection, you should highlight your recommendations for what to do next. For most projects, what to do next is either to deploy the model into production or to close off this project and move on to something else. Reasoning about this involves understanding the business value, and the potential IT costs of deploying and integrating the model.*
 
 *Other things you can recommend would typically relate to data quality and availability, or other areas of experimentation that you did not have time or resources to do this time round.*
+
+#### Next Steps
+
+We recommend implementing adjustments to Bus 67 and potentially Bus 63 to reduce redundancy with MRT lines. These changes should be communicated clearly to commuters to ensure a smooth transition.
+
+#### Deployment Considerations
+
+Deploying these changes involves:
+- **Updating Public Transport Apps**: Ensure all bus route updates are reflected in apps like MyTransport.SG and Google Maps to avoid confusion among users.
+- **Public Communication**: Inform commuters about the route changes through announcements in public transport apps, signage at affected bus stops, and media channels.
+
+#### Additional Recommendations
+
+1. **Extend Analysis to New and Future MRT Lines**: As the Cross Island Line and Jurong Region Line are introduced, apply this overlap analysis to identify additional redundant bus routes and optimize the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
+
+2. **Data Quality Improvement**: Future analyses would benefit from more granular data, such as detailed bus paths and ridership statistics, to improve overlap assessment and better understand commuter demand.
