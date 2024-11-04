@@ -133,6 +133,8 @@ Furthermore, we employed `Singapore MRT Map in Folium` by Timothy Lim on Kaggle 
 #### **3.2.2 Cleaning** 
 How did you clean the data? How did you treat outliers or missing values?
 
+- **Add missing stations:** As the Kaggle dataset on MRT stations was not updated to include the recently opened stations on the Thomson-East Coast line, we manually added these missing stations to the dataset, so the visualisation of the MRT routes and the analysis of the overlap distance between bus routes and MRT lines will be more complete.
+  
 - **Geospatial Transformation:** We converted the `Bus Stops` and `Bus Routes` datasets into geospatial data frames (`bus_stops_gdf` and `bus_routes_gdf`) using GeoPandas, defining geometries based on longitude and latitude for each stop. For MRT station exits, we read in spatial data from the `TrainStationExit` shapefile as `train_station_exits_gdf`, allowing us to map out all station exit points.
 
 - **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto `folium` maps.
@@ -144,7 +146,7 @@ What feature engineering did you do? Was anything dropped?
 
 * `mrt_stations_gdf_3857` : GeoDataFrame containing the locations and attributes of MRT stations transformed to the EPSG:3857 coordinate reference system. [KIV]
 
-* `mrt_stations_3857_2` : Contains `Line` column for MRT stations, which can be used for filtering. [KIV]
+* `mrt_stations_3857_2` : We merged the Kaggle dataset with the MRT stations dataset from LTA Datamall, as the Kaggle dataset contained information on the lines that the MRT stations belonged to, and the order of the stations along the line, which we used to supplement the data from LTA Datamall containing the geographic information on the locations of the MRT stations.[KIV]
 
 #### **3.2.4 Splitting** [might consider deleting this section]
 How did you split the data between training and test sets?
