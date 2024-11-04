@@ -44,13 +44,13 @@ Furthermore, data science ensures scalability and adaptability. As Singapore’s
 
 *(need to include metrics on how to evaluate whether a route should be re-routed & how a new route is decided)*
 
-Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation and meet public demand in underserved areas.
+Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation, cut costs and meet public demand in underserved areas.
 
 <b>Business Goal</b>: Identify 2 bus routes that significantly overlap with MRT lines for partial reroute or adjustment. This will allow MOT to free up funding and redirect resources.
 
 <b>Operational Goal</b>: Streamline public transport by eliminating redundancy and ensuring that re-routed or adjusted bus services still maintain commuter convenience without creating significant disruption. This will be assessed by:
 
-* <b> Route Overlap Distance </b>: Using geospatial analysis, calculate the overlap distance of each bus route within a 150-meter buffer around MRT lines. Routes with the highest overlap distances will be prioritized for review as they represent .
+* <b> Route Overlap Distance </b>: Using geospatial analysis, calculate the overlap distance of each bus route within a 150-meter buffer around MRT lines. Routes with the highest overlap distances will be prioritized for review as they represent potential redundant routes in the public transport network. 
 
 * <b> Alternative Access Feasibility </b>: For each route identified, evaluate the accessibility and convenience of alternative transport options, such as other bus routes or MRT stations. Adjustments will only be recommended if these alternatives are reasonably convenient, minimizing impact on commuter experience.
 
@@ -84,7 +84,7 @@ This project is based on several key assumptions, each of which affects the prob
 
 #### 1. Definition of Key Variables and Terms
    - **Overlap Distance**: Defined as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line.
-   - **Buffer Zone**: A 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes.
+   - **Buffer Zone**: A 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes. [justification: https://www.lta.gov.sg/content/ltagov/en/who_we_are/our_work/land_transport_master_plan_2040.html -> Land Transport Master Plan 2040 (LTMP 2040) focuses on creating a more integrated and sustainable transport system. Although specific buffer zone distances aren't always detailed, the plan emphasizes reducing car dependency, enhancing public transport connectivity and reducing travel times, which aligns with using spatial planning tools, such as our 150m buffer zones, to streamline public transport.]
    - **Redundant Route**: Defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
 
 #### 2. Features Available / Unavailable
