@@ -190,7 +190,7 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 |-----------|-----------------------|---------------------|-------------------------------------|
 | Bus 67    |16091.46              | Remove Segment     | MRT Downtown Line, Bus 170          |
 | Bus 170   | 13688.14                 | Retain             | MRT Downtown Line, Bus 67        |
-| Bus 63  | 12987.28               | Partial Reroute    | MRT East-West Line               |
+| Bus 63  | 12987.28               | Remove Entirely   | MRT East-West Line               |
 
 The Summary Table shows the overlap distances for bus routes with top few MRT overlap, along with recommended actions. For instance, Bus 67 has a large overlap with the Downtown Line and Bus 170, so we recommend removing its overlapping segment while retaining Bus 170 to serve stops between MRT stations. Routes with limited alternative coverage, like Bus 63, are partially rerouted to balance efficiency and commuter access.  (to edit) 
 
