@@ -1,7 +1,7 @@
 # Technical Report
 
 **Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimizations**  
-**Members: Jiya, Ko-shyan, Choo Jin Yi, Kang Yu Ting, Kai Lin**  
+**Members: Choo Jin Yi, Jiya Dutta, Kang Yu Ting, Lian Ko-Shyan, Toh Kai Lin**  
 Last updated on 4/11/2024
 
 ## Section 1: Context
@@ -90,7 +90,7 @@ This project is based on several key assumptions, each of which affects the prob
      - Geospatial data on MRT line routes and stations, sourced from LTA DataMall and Kaggle.
      - Bus stop locations for each bus route, sourced from LTA DataMall.
    - **Unavailable Features**:
-     - Specific path data for each bus route, as the LTA DataMall provides only bus stop locations but not the exact routes connecting them.
+     - Specific path data for each bus route, as the LTA DataMall provides only bus stop locations as point coordinates but not the exact routes connecting them.
      - Ridership data for specific bus routes, which would allow for a more nuanced understanding of demand and usage patterns.
      - Real-time traffic and congestion data, which could impact route efficiency and commuter travel time.
 
@@ -123,6 +123,9 @@ Our datasets are retrieved from the Land Transport Authority (LTA) Datamall API,
 * `Bus Stops`: Retrieved detailed information for all bus stops currently being serviced by buses.
 * `Train Station`: Retrieved a point representation to indicate the location of the MRT station.
 * `Train Station Exits`: Retrieved a point representation to indicate the location of a train station exit point.
+* `Passenger Volume by Origin Destination Bus Stops`: Retrieved detailed information on the number of trips by weekdays and weekends from the origin to the destination bus stops.
+
+Furthermore, we employed `Singapore MRT Map in Folium` by Timothy Lim on Kaggle (https://www.kaggle.com/code/lzytim/singapore-mrt-map-in-folium/notebook), which contains a complete map of Singapore's MRT network.
 
 
 #### **3.2.2 Cleaning** 
@@ -130,12 +133,12 @@ How did you clean the data? How did you treat outliers or missing values?
 
 - **Geospatial Transformation:** We converted the `Bus Stops` and `Bus Routes` datasets into geospatial data frames (`bus_stops_gdf` and `bus_routes_gdf`) using GeoPandas, defining geometries based on longitude and latitude for each stop. For MRT station exits, we read in spatial data from the `TrainStationExit` shapefile as `train_station_exits_gdf`, allowing us to map out all station exit points.
 
-- **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations.
+- **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto `folium` maps.
 
 #### **3.2.3 Features** 
 What feature engineering did you do? Was anything dropped?
 
-* `bus_route_combined` : We aggregated bus stops into continuous route lines using the LineString function. We grouped the bus stops based on their ServiceNo (bus service number) and Direction (route direction) attributes to ensure each route was represented as a single, uninterrupted geometry. 
+* `bus_route_combined` : We aggregated bus stops into continuous route lines using the `LineString` function. We grouped the bus stops based on their `ServiceNo` (bus service number) and `Direction` (route direction) attributes to ensure each route was represented as a single, uninterrupted LineString geometry. 
 
 * `mrt_stations_gdf_3857` : GeoDataFrame containing the locations and attributes of MRT stations transformed to the EPSG:3857 coordinate reference system. [KIV]
 
@@ -160,10 +163,9 @@ For each bus stop, the distance to all MRT station exits was computed using GeoP
 
 #### **Overlap Distance Calculation with MRT Stations**
 
+`TEL_route` : LineString object is constructed from the centroid coordinates of the brown line stations, representing the overall route of the Thomson-East Coast Line.
 
-`brown_line_route` : LineString object is constructed from the centroid coordinates of the brown line stations, representing the overall route of the Thomson-East Coast Line.
-
-`buffered_brown_line` : A buffer of 100 meters is applied to the    `brown_line_route` which broadens the line for intersection analysis with bus routes.
+`buffered_TEL` : A buffer of 150 meters is applied to the `TEL_route` which broadens the line for intersection analysis with bus routes.
 
 `overlap_distance_brown`: GeoDataFrame that contains a list of overlap distances converted from `overlap_distance_output_brown`, which calculates the intersection between the buffered brown line and each bus route geometry. The result includes bus service number, direction, overlap distance, MRT line name, and intersection geometry.
 
@@ -178,7 +180,6 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 *In this subsection, you should report the results from your experiments in a summary table, keeping only the most relevant results for your experiment (ie your best model, and two or three other options which you explored). You should also briefly explain the summary table and highlight key results.*
 
 *Interpretability methods like LIME or SHAP should also be reported here, using the appropriate tables or charts.*
-
 
 
 ### Summary Table
