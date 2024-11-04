@@ -6,10 +6,6 @@ Last updated on 4/11/2024
 
 ## Section 1: Context
 
-*In this section, you should explain how this project came about. Retain all relevant details about the project’s history and context, especially if this is a continuation of a previous project.*
-
-*If there are any slide decks or email threads that started before this project, you should include them as well.*
-
 In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services — long routes that connect various neighborhoods across Singapore. These trunk services tend to be slower and less predictable than MRT travel. To improve efficiency and optimize resources, the Land Transport Authority (LTA) is seeking to streamline Singapore's public transport options by encouraging commuters to transition to these new MRT lines instead of relying on overlapping bus routes.
 
 This project was initiated to identify bus routes that run closely parallel MRT lines, allowing LTA to prioritize potential adjustments for cost-effectiveness and enhanced commuter experience.
@@ -18,19 +14,9 @@ This project was initiated to identify bus routes that run closely parallel MRT 
 
 ### 2.1 Problem
 
-*In this subsection, you should explain what is the key business problem that you are trying to solve through your data science project. You should aim to answer the following questions:*
-
-* *What is the problem that the business unit faces? Be specific about who faces the problem, how frequently it occurs, and how it affects their ability to meet their desired goals.*
-
 The Ministry of Transport’s (MOT) Land Division, specifically the Public Transportation team, is responsible for overseeing the planning and optimization of public transportation routes in Singapore. Due to budget constraints, it’s crucial for the team to ensure that public transport resources are allocated efficiently. However, the introduction of new MRT lines, such as the Downtown Line and Thomson-East Coast Line, has resulted in decreased ridership on certain trunk bus services, which are long bus routes connecting various neighborhoods across Singapore. Some of these services are now underutilized, as commuters prefer the faster and more predictable MRT options.
 
-
-* *What is the significance or impact of this problem? Provide tangible metrics that demonstrate the cost of not addressing this problem.*
-
 The challenge facing the Public Transportation team is to identify and streamline bus routes that significantly overlap with MRT lines. Failing to optimize these bus routes will lead to wasted resources, limiting the team's ability to finance new routes that could better serve unmet commuter needs. If left unaddressed, this inefficiency could result in a misallocation of MOT’s limited budget, potentially impacting the overall effectiveness of Singapore’s public transport system.
-
-
-* *Why is data science / machine learning the appropriate solution to the problem?*
 
 Data science provides an efficient and systematic solution to identifying route redundancies within Singapore’s complex transport network. Manually analyzing bus and MRT overlaps would be both time-consuming and prone to error. By using data science techniques, we can process large-scale geospatial data to accurately calculate overlap distances within defined buffer zones of MRT lines, allowing us to quantify which bus routes duplicate MRT lines, and to what extent.
 
@@ -40,13 +26,9 @@ Furthermore, data science ensures scalability and adaptability. As Singapore’s
 
 ### 2.2 Success Criteria
 
-*In this subsection, you should explain how you will measure or assess success for your data science project. You need to specify at least 2 business and/or operational goals that will be met if this project is successful. Business goals directly relate to the business’s objectives, such as reduced fraud rates or improved customer satisfaction. Operational goals relate to the system’s needs, such as better reliability, faster operations, etc.*
-
-*(need to include metrics on how to evaluate whether a route should be re-routed & how a new route is decided)*
-
 Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation, cut costs and meet public demand in underserved areas.
 
-<b>Business Goal</b>: Identify 2 bus routes that significantly overlap with MRT lines for partial reroute or adjustment. This will allow MOT to free up funding and redirect resources.
+<b>Business Goal</b>: Identify 3 bus routes that significantly overlap with MRT lines for partial reroute or adjustment. This will allow MOT to free up funding and redirect resources.
 
 <b>Operational Goal</b>: Streamline public transport by eliminating redundancy and ensuring that re-routed or adjusted bus services still maintain commuter convenience without creating significant disruption. This will be assessed by:
 
@@ -58,10 +40,6 @@ Meeting these criteria will demonstrate that the project has successfully provid
 
 
 ### 2.3 Assumptions
-
-*In this subsection, you should set out the key assumptions for this data science project that, if changed, will affect the problem statement, success criteria, or feasibility. You do not need to detail out every single assumption if the expected impact is not significant.*
-
-*For example, if we are building an automated fraud detection model, one important assumption may be whether there is enough manpower to review each individual decision before proceeding with it.*
 
 This project is based on several key assumptions, each of which affects the problem definition, success criteria, and feasibility of our analysis. These assumptions include:
 
@@ -75,12 +53,6 @@ This project is based on several key assumptions, each of which affects the prob
 
 ### 3.1 Technical Assumptions
 
-*In this subsection, you should set out the assumptions that are directly related to your model development process. Some general categories include:*
-* *How to define certain terms as variables*
-* *What features are available / not available*
-* *What kind of computational resources are available to you (ie on-premise vs cloud, GPU vs CPU, RAM availability)*
-* *What the key hypotheses of interest are*
-* *What the data quality is like (especially if incomplete / unreliable)*
 
 #### 1. Definition of Key Variables and Terms
    - **Overlap Distance**: Defined as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line.
@@ -131,7 +103,6 @@ Furthermore, we employed `Singapore MRT Map in Folium` by Timothy Lim on Kaggle 
 
 
 #### **3.2.2 Cleaning** 
-How did you clean the data? How did you treat outliers or missing values?
 
 - **Add missing stations:** As the Kaggle dataset on MRT stations was not updated to include the recently opened stations on the Thomson-East Coast line, we manually added these missing stations to the dataset, so the visualisation of the MRT routes and the analysis of the overlap distance between bus routes and MRT lines will be more complete.
   
@@ -140,16 +111,12 @@ How did you clean the data? How did you treat outliers or missing values?
 - **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto `folium` maps.
 
 #### **3.2.3 Features** 
-What feature engineering did you do? Was anything dropped?
 
 * `bus_route_combined` : We aggregated bus stops into continuous route lines using the `LineString` function. We grouped the bus stops based on their `ServiceNo` (bus service number) and `Direction` (route direction) attributes to ensure each route was represented as a single, uninterrupted LineString geometry. 
 
 * `mrt_stations_gdf_3857` : GeoDataFrame containing the locations and attributes of MRT stations transformed to the EPSG:3857 coordinate reference system. [KIV]
 
 * `mrt_stations_3857_2` : We merged the Kaggle dataset with the MRT stations dataset from LTA Datamall, as the Kaggle dataset contained information on the lines that the MRT stations belonged to, and the order of the stations along the line, which we used to supplement the data from LTA Datamall containing the geographic information on the locations of the MRT stations.[KIV]
-
-#### **3.2.4 Splitting** [might consider deleting this section]
-How did you split the data between training and test sets?
 
 #### **3.2.4 Data Analysis** 
 
@@ -181,11 +148,6 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 
 ### 4.1 Results
 
-*In this subsection, you should report the results from your experiments in a summary table, keeping only the most relevant results for your experiment (ie your best model, and two or three other options which you explored). You should also briefly explain the summary table and highlight key results.*
-
-*Interpretability methods like LIME or SHAP should also be reported here, using the appropriate tables or charts.*
-
-
 ### Summary Table
 
 | Bus Route | Overlap Distance (m) | Recommended Action | Alternative Route Availability      |
@@ -193,14 +155,11 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 | Bus 67    |14747.34           | Remove Segment     | MRT Downtown Line, Bus 170          |
 | Bus 36  | 13593.10               | Retain             | MRT Downtown Line, Bus 67        |
 | Bus 63  | 	12987.28             | Remove Entirely   | MRT East-West Line               |
+| Bus 2  | 	12440.27            | Remove Segment   | MRT East-West Line               |
 
-Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Bus 63 shows considerable overlap with the East-West Line and multiple buses, and due to ample alternative coverage, we recommend removing it entirely to streamline the network.
+Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Bus 63 shows considerable overlap with the East-West Line and multiple buses, and due to ample alternative coverage, we recommend removing it entirely to streamline the network. 
 
 ### 4.2 Discussion
-
-*In this subsection, you should discuss what the results mean for the business user – specifically how the technical metrics translate into business value and costs, and whether this has sufficiently addressed the business problem.*
-
-*You should also discuss or highlight other important issues like interpretability, fairness, and deployability.*
 
 #### Business Value of Results
 
@@ -221,10 +180,6 @@ This data-driven approach addresses the business goal of optimizing the network 
 3. **Deployability**: Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs.
 
 ### 4.3 Recommendations
-
-*In this subsection, you should highlight your recommendations for what to do next. For most projects, what to do next is either to deploy the model into production or to close off this project and move on to something else. Reasoning about this involves understanding the business value, and the potential IT costs of deploying and integrating the model.*
-
-*Other things you can recommend would typically relate to data quality and availability, or other areas of experimentation that you did not have time or resources to do this time round.*
 
 #### Next Steps
 
