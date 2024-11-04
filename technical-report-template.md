@@ -163,7 +163,7 @@ Bus 67 has a significant overlap with the Downtown Line. For efficiency, we reco
 
 #### Business Value of Results
 
-The overlap analysis between bus routes and MRT lines provides actionable insights to optimize the public transport network. By adjusting redundant routes like Bus 67 and potentially Bus 63, we can achieve:
+The overlap analysis between bus routes and MRT lines provides actionable insights to optimize the public transport network. By removing redundant segments of Bus 67, 63 and 2,  we can achieve:
 
 - **Cost Savings**: Reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas.
 - **Improved Network Efficiency**: Streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage.
