@@ -85,10 +85,8 @@ This project is based on several key assumptions, each of which affects the prob
 
 ### 3.2 Data
 
-*In this subsection, you should provide a clear and detailed explanation of how your data is collected, processed, and used. Some specific parts you should explain are:*
 
 #### **3.2.1 Collection** 
-(What datasets did you use and how are they collected?)
 
 Our datasets are retrieved from the Land Transport Authority (LTA) Datamall API, utilising the following endpoints:
 
