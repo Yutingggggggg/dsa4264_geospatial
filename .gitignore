@@ -1,10 +1,12 @@
 workingfiles/**
 
-# Allow .ipynb files
-!*.ipynb
+# Allow .ipynb files 
+!workingfiles/**/*.ipynb
 
-# Ignore API keys 
+# Ignore API key files
 *api_key*
 *API_KEY*
 *.env
 
+# Ignore .DS_Store 
+.DS_Store
