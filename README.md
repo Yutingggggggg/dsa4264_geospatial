@@ -25,6 +25,15 @@ To set up your environment:
      ```cmd
      setx LTA_API_KEY 'your_api_key'
      ```
+   2.1 If the above does not work for Unix-like systems, run
+   ```
+   nano ~/.zshrc
+   ```
+   and set the environment variable:
+   ```bash
+   export LTA_API_KEY='your_api_key'
+   ```
+
 
 ### Workflow
 
