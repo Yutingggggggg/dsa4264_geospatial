@@ -152,7 +152,8 @@ We did the same for the other MRT lines such as Downtown Line, North-East Line, 
 |-----------|-----------------------|---------------------|-------------------------------------|
 | Bus 67    |14747.34           | Remove Segment     | MRT Downtown Line, Bus 170          |
 | Bus 36  | 13593.10               | Retain             | MRT Downtown Line, Bus 67        |
-| Bus 63  | 	12987.28             | Remove Entirely   | MRT East-West Line               |
+| Bus 63  | 	12987.28             | Remove Entirely   | MRT East-West Line, Bus 64 & 518               |
+| Bus 23  | 	12799.11             | Retain   | MRT Downtown Line               |
 | Bus 2  | 	12440.27            | Remove Segment   | MRT East-West Line               |
 
 Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Bus 63 shows considerable overlap with the East-West Line and multiple buses, and due to ample alternative coverage, we recommend removing it entirely to streamline the network. (UPDATE FOR BUS 2) 

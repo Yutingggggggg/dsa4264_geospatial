@@ -8,6 +8,7 @@ The geospatial component of this project involves analyzing the spatial overlap 
 
 ## Static Datasets
 1. Download the static datasets from LTA Datamall: 'TrainStation' & 'TrainStationExit'
+2. Download the static dataset from Kaggle: [MRT Stations](https://www.kaggle.com/code/lzytim/singapore-mrt-map-in-folium/input?select=mrt_stations)
 
 ## Setting Up the Environment
 
@@ -16,7 +17,7 @@ To set up your environment:
 1. Run the following command to install all required dependencies:
    pip install -r requirements.txt
 2. Set your API key as an environment variable:
-   - For Unix-like systems:
+   - For Unix-like systems (macOS & LINUX):
      ```bash
      export LTA_API_KEY='your_api_key'
      ```
