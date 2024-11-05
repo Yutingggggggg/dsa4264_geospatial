@@ -8,5 +8,3 @@ workingfiles/**
 *API_KEY*
 *.env
 
-# Ignore the BusPassengerVolume dataset
-BusPassengerVolume/
