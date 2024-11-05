@@ -12,6 +12,15 @@ To set up your environment:
 
 1. Run the following command to install all required dependencies:
    pip install -r requirements.txt
+2. Set your API key as an environment variable:
+   - For Unix-like systems:
+     ```bash
+     export LTA_API_KEY='your_api_key'
+     ```
+   - For Windows:
+     ```cmd
+     set LTA_API_KEY='your_api_key'
+     ```
 
 ### Workflow
 
