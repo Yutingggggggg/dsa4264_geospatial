@@ -6,7 +6,7 @@ Last updated on 4/11/2024
 
 ## Section 1: Context
 
-In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services — long routes that connect various neighborhoods across Singapore. These trunk services tend to be slower and less predictable than MRT travel. To improve efficiency and optimize resources, the Land Transport Authority (LTA) is seeking to streamline Singapore's public transport options by encouraging commuters to transition to these new MRT lines instead of relying on overlapping bus routes.
+In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services — long routes that connect various neighborhoods across Singapore. These trunk services tend to be slower and les
 
 This project was initiated to identify bus routes that run closely parallel MRT lines, allowing LTA to prioritize potential adjustments for cost-effectiveness and enhanced commuter experience.
 
@@ -54,12 +54,12 @@ This project is based on several key assumptions, each of which affects the prob
 ### 3.1 Technical Assumptions
 
 
-#### 1. Definition of Key Variables and Terms
+#### 3.1.1 Definition of Key Variables and Terms
    - **Overlap Distance**: Defined as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line.
    - **Buffer Zone**: A 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes. [justification: https://www.lta.gov.sg/content/ltagov/en/who_we_are/our_work/land_transport_master_plan_2040.html -> Land Transport Master Plan 2040 (LTMP 2040) focuses on creating a more integrated and sustainable transport system. Although specific buffer zone distances aren't always detailed, the plan emphasizes reducing car dependency, enhancing public transport connectivity and reducing travel times, which aligns with using spatial planning tools, such as our 150m buffer zones, to streamline public transport.]
    - **Redundant Route**: Defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
 
-#### 2. Features Available / Unavailable
+#### 3.1.2 Features Available / Unavailable
    - **Available Features**:
      - Geospatial data on MRT line routes and stations, sourced from LTA DataMall and Kaggle.
      - Bus stop locations for each bus route, sourced from LTA DataMall.
@@ -68,17 +68,17 @@ This project is based on several key assumptions, each of which affects the prob
      - Ridership data for specific bus routes, which would allow for a more nuanced understanding of demand and usage patterns.
      - Real-time traffic and congestion data, which could impact route efficiency and commuter travel time.
 
-#### 3. Computational Resources
+#### 3.1.3 Computational Resources
    - **Environment**: The analysis was conducted on a standard CPU-based setup, which limited the processing power available for large-scale geospatial computations.
    - **Memory Constraints**: Limited RAM availability constrained the size of datasets that could be processed simultaneously, necessitating data sampling and batch processing for large-scale analyses.
    - **Software Tools**: GIS (Geographic Information System) libraries in Python, such as GeoPandas, were used for spatial calculations, and these libraries were constrained by available local processing power.
 
-#### 4. Key Hypotheses of Interest
+#### 3.1.4 Key Hypotheses of Interest
    - **Hypothesis 1**: Bus routes with high overlap distances are likely redundant with MRT lines and may be candidates for rerouting or partial removal.
    - **Hypothesis 2**: A buffer zone of 150 meters is adequate to capture meaningful overlap that would impact commuter convenience or route redundancy.
    - **Hypothesis 3**: Alternative routes or transit options are available for redundant bus routes, which minimizes the impact on commuter access if these routes are adjusted.
 
-#### 5. Data Quality and Limitations
+#### 3.1.5 Data Quality and Limitations
    - **Completeness**: The data from LTA DataMall and Kaggle provided comprehensive route details but lacked specific path data for bus routes. Since only bus stop locations were available, we approximated each bus route by connecting sequential bus stops in a straight line.
    - **Timeliness**: The datasets from LTA DataMall are as of July 2024. They do not account for temporary route diversions or construction, which could affect the real-world application of the analysis.
    - **Accuracy**: Geospatial precision is assumed to be high, but any minor inaccuracies in the mapping of routes may slightly affect the calculated overlap distance.
@@ -95,7 +95,7 @@ Our datasets are retrieved from the Land Transport Authority (LTA) Datamall API,
 * `Bus Stops`: Retrieved detailed information for all bus stops currently being serviced by buses.
 * `Train Station`: Retrieved a point representation to indicate the location of the MRT station.
 * `Train Station Exits`: Retrieved a point representation to indicate the location of a train station exit point.
-* `Passenger Volume by Origin Destination Bus Stops`: Retrieved detailed information on the number of trips by weekdays and weekends from the origin to the destination bus stops.
+
 
 Furthermore, we employed `Singapore MRT Map in Folium` by Timothy Lim on Kaggle (https://www.kaggle.com/code/lzytim/singapore-mrt-map-in-folium/notebook), which contains a complete map of Singapore's MRT network.
 
@@ -106,7 +106,7 @@ Furthermore, we employed `Singapore MRT Map in Folium` by Timothy Lim on Kaggle 
   
 - **Geospatial Transformation:** We converted the `Bus Stops` and `Bus Routes` datasets into geospatial data frames (`bus_stops_gdf` and `bus_routes_gdf`) using GeoPandas, defining geometries based on longitude and latitude for each stop. For MRT station exits, we read in spatial data from the `TrainStationExit` shapefile as `train_station_exits_gdf`, allowing us to map out all station exit points.
 
-- **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto `folium` maps.
+- **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto folium maps.
 
 #### **3.2.3 Features** 
 
