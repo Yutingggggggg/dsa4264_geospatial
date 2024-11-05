@@ -6,6 +6,9 @@ This project aims to perform a comprehensive geospatial analysis of bus routes t
 
 The geospatial component of this project involves analyzing the spatial overlap between bus routes and MRT lines to identify redundancies and potential service optimizations.
 
+## Static Datasets
+1. Download the static datasets from LTA Datamall: 'TrainStation' & 'TrainStationExit'
+
 ## Setting Up the Environment
 
 To set up your environment:
