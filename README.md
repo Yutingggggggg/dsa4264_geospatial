@@ -12,21 +12,21 @@ To set up your environment:
 
 1. Run the following command to install all required dependencies:
    pip install -r requirements.txt
-2. Set your API key as an environment variable on your laptop's terminal:
-   - For Unix-like systems (macOS, LINUX):
+2. Set your API key as an environment variable:
+   - For Unix-like systems:
      ```bash
      export LTA_API_KEY='your_api_key'
      ```
    - For Windows:
      ```cmd
-     set LTA_API_KEY='your_api_key'
+     setx LTA_API_KEY 'your_api_key'
      ```
 
 ### Workflow
 
 1. **Accessing Datasets**:
    - Open and run the `lta_datamall_data.ipynb` notebook located in the `workingfiles` directory.
-   - This step processes and cleans the raw data obtained from LTA Datamall.
+   - This step retrieves data from the LTA Datamall API, and processes and cleans the raw data obtained.
 
 2. **Overlap Distance Calculation**:
    - Run the `overlap_distance.ipynb` notebook.
