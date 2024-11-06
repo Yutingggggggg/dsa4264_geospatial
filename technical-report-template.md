@@ -55,9 +55,7 @@ This project is based on several key assumptions, each of which affects the prob
 
 
 #### 3.1.1 Definition of Key Variables and Terms
-   - **Overlap Distance**: Defined as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line.
-   - **Buffer Zone**: A 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes. The [Land Transport Master Plan 2040 ](https://www.lta.gov.sg/content/ltagov/en/who_we_are/our_work/land_transport_master_plan_2040.html)(LTMP 2040) focuses on creating a more integrated and sustainable transport system. Although specific buffer zone distances aren't always detailed, the plan emphasizes enhancing public transport connectivity and reducing travel times, which aligns with our use of the buffer zone. 
-   - **Redundant Route**: Defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
+We defined **Overlap Distance** as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line. The **Buffer Zone** used is a 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes. The [Land Transport Master Plan 2040 ](https://www.lta.gov.sg/content/ltagov/en/who_we_are/our_work/land_transport_master_plan_2040.html)(LTMP 2040) focuses on creating a more integrated and sustainable transport system. Although specific buffer zone distances aren't always detailed, the plan emphasizes enhancing public transport connectivity and reducing travel times, which aligns with our use of the buffer zone. Lastly, **Redundant Route** is defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
 
 #### 3.1.2 Features Available / Unavailable
 
@@ -127,11 +125,6 @@ After identifying the closest MRT station exit to each bus stop, we filtered out
 
 ### 3.3 Experimental Design
 
-*In this subsection, you should clearly explain the key steps of your model development process, such as:*
-* *Algorithms: Which ML algorithms did you choose to experiment with, and why?*
-* *Evaluation: Which evaluation metric did you optimise and assess the model on? Why is this the most appropriate?*
-* *Training: How did you arrive at the final set of hyperparameters? How did you manage imbalanced data or regularisation?*
-
 #### Finding overlap distance between bus routes and MRT lines
 
 To identify which bus routes run parallel to MRT lines, we constructed an algorithm to find the length of the bus route that overlaps with a buffered region of each MRT line. To explain our algorithm further, we will use the Thomson-East Coast Line as an example
@@ -172,7 +165,7 @@ These were the results we found.
 |-----------|---------------|-----------------------|---------------------|-------------------------------------|
 | Bus 67    | Downtown Line | 14747.34           | Remove Segment from Choa Chu Kang to Newton    | MRT Downtown Line, Bus 170          |
 | Bus 36  | Thomson-East Coast Line | 13593.10               | Retain             | MRT Thomson-East Coast Line       |
-| Bus 63  | East-West Line | 	12987.28             | Remove Entirely   | MRT East-West Line, Bus 64 & 518               |
+| Bus 63  | East-West Line | 	12987.28             | Remove Entirely   | MRT East-West Line, Bus 51 & others               |
 | Bus 23  | Downtown Line | 	12799.11             | Retain   | MRT Downtown Line               |
 | Bus 2  | East-West Line | 	12440.27            | Remove Segment from Kampong Bahru to Tanah Merah  | MRT East-West Line, Bus 12 & 67               |
 
@@ -240,8 +233,7 @@ This data-driven approach addresses the business goal of optimizing the network 
 
 #### Key Issues
 
-We also focused on some key issues when developing our approach. Firstly, we made sure that our results were interpretable. The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify. Secondly, we wanted to ensure fairness to commuters when removing or rerouting bus routes, so adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport.
-Thirdly, we focused on the deployability of our recommendations. Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs.
+We focused on some key issues when developing our approach. Firstly, we made sure that our results were interpretable. The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify. The distances displayed in an easy-to-read summary table are complemented with the visualisations on the `overlap_map` outputs, ensuring that our findings are clearly interpretable. The toggling of layers between overlap sections, MRT line and bus route (with blue pins on the map) allow stakeholders to glance at different sections as needed. Secondly, we wanted to ensure fairness to commuters when removing or rerouting bus routes, so adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport. Thirdly, we focused on the deployability of our recommendations. Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs. We ensured to cover all bases by considering different segments of each bus route and its impact on commuter convenience and overall acccessibility. 
 
 ### 4.3 Recommendations
 
