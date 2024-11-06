@@ -2,11 +2,11 @@
 
 **Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimizations**  
 **Members: Choo Jin Yi, Jiya Dutta, Kang Yu Ting, Lian Ko-Shyan, Toh Kai Lin**  
-Last updated on 4/11/2024
+Last updated on 6/11/2024
 
 ## Section 1: Context
 
-In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services — long routes that connect various neighborhoods across Singapore. 
+In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services — long routes that connect various neighborhoods across Singapore.
 
 This project was initiated to identify bus routes that run closely parallel MRT lines, allowing LTA to prioritize potential adjustments for cost-effectiveness and enhanced commuter experience.
 
@@ -60,28 +60,31 @@ This project is based on several key assumptions, each of which affects the prob
    - **Redundant Route**: Defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
 
 #### 3.1.2 Features Available / Unavailable
-   - **Available Features**:
-     - Geospatial data on MRT line routes and stations, sourced from LTA DataMall and Kaggle.
-     - Bus stop locations for each bus route, sourced from LTA DataMall.
-   - **Unavailable Features**:
-     - Specific path data for each bus route, as the LTA DataMall provides only bus stop locations as point coordinates but not the exact routes connecting them.
-     - Ridership data for specific bus routes, which would allow for a more nuanced understanding of demand and usage patterns.
-     - Real-time traffic and congestion data, which could impact route efficiency and commuter travel time.
+
+The features that were available to us were geospatial data on MRT line routes and stations, sourced from LTA DataMall and Kaggle, and bus stop locations for each bus route, also sourced from LTA DataMall.
+There were also some features that we needed but were unavailable to us. These features include specific path data for each bus route, as the LTA DataMall only provided bus stop locations as point coordinates, but did not provide the exact routes connecting the bus stops. Also, we lacked ridership data specific to each bus route, which would have allowed for a more nuanced understanding of demand and usage patterns. Lastly, data on real-time traffic and congestion data, which we could have used to conduct a deeper analysis into route efficiency and commuter travel time, was also unavailable.
 
 #### 3.1.3 Computational Resources
-   - **Environment**: The analysis was conducted on a standard CPU-based setup, which limited the processing power available for large-scale geospatial computations.
-   - **Memory Constraints**: Limited RAM availability constrained the size of datasets that could be processed simultaneously, necessitating data sampling and batch processing for large-scale analyses.
-   - **Software Tools**: GIS (Geographic Information System) libraries in Python, such as GeoPandas, were used for spatial calculations, and these libraries were constrained by available local processing power.
+
+The analysis was conducted on a standard CPU-based setup, which limited the processing power available for large-scale geospatial computations. Also, limited RAM availability constrained the size of datasets that could be processed simultaneously, so we had to narrow down the bus routes for further and more detailed analysis that takes a longer time to run. The software tools we used were GIS (Geographic Information System) libraries in Python, such as GeoPandas, for spatial calculations, and these libraries were constrained by available local processing power.
 
 #### 3.1.4 Key Hypotheses of Interest
-   - **Hypothesis 1**: Bus routes with high overlap distances are likely redundant with MRT lines and may be candidates for rerouting or partial removal.
-   - **Hypothesis 2**: A buffer zone of 150 meters is adequate for our current purposes to capture meaningful overlap that would impact commuter convenience and route redundancy.
-   - **Hypothesis 3**: Alternative routes or transport options are available for redundant bus routes, which minimizes the impact on commuter access if these routes are removed or rerouted.
+
+Our first hypothesis is that bus routes with high overlap distances are likely redundant with MRT lines and may be candidates for rerouting or partial removal. This seemed plausible as MRT lines generally run faster than buses, have greater capacity and arrive at more predictable timings, so commuters are likely to prefer taking MRT to buses when possible to minimise their travel time.
+
+Our second hypothesis is that a buffer zone of 150 meters is adequate for our current purposes to capture meaningful overlap that would impact commuter convenience and route redundancy. We chose a buffer zone of 150 meters as according to a statement made by the Minister for Transport, the median distance between an MRT station exit and the bus stop is 40 metres for the newer Downtown and Thomson-East Coast Lines. However, we had to be careful about being too strict to ensure that we do not exclude bus stops that may be further than 40 metres, especially for the older MRT lines. Also, as our analysis used the centroids of the MRT stations and not the specific exit locations, we thought it was reasonable to increase the buffer zone to account for this distance from the center of the MRT station to the exits. We also made sure not to be too generous, so as to avoid including bus stops that were not actually parallel to the MRT line. 
+
+Our last hypothesis is that alternative routes or transport options are available for redundant bus routes, and work equally well to serve commuters' needs, which minimizes the impact on commuter access if these routes are removed or rerouted. While the redundant bus routes run parallel to MRT lines, giving commuters an alternative way to get to the MRT stations along the route, commuters may need access to bus stops in between MRT stations, and some commuters might simply prefer taking buses to MRT. Thus, we thought it would be important to ensure that there are alternative bus routes for the redundant bus routes before we choose to remove them.
 
 #### 3.1.5 Data Quality and Limitations
-   - **Completeness**: The data from LTA DataMall and Kaggle provided comprehensive route details but lacked specific path data for bus routes. Since only bus stop locations were available, we approximated each bus route by connecting sequential bus stops in a straight line.
-   - **Timeliness**: The datasets from LTA DataMall are as of July 2024. They do not account for temporary route diversions or construction, which could affect the real-world application of the analysis.
-   - **Accuracy**: Geospatial precision is assumed to be high, but any minor inaccuracies in the mapping of routes may slightly affect the calculated overlap distance.
+
+While the data from LTA DataMall was detailed, it had several limitations. 
+
+Firstly, while the data from LTA DataMall and Kaggle provided comprehensive route details, it lacked specific path data for bus routes. Since only bus stop locations were available as points, we approximated each bus route by connecting sequential bus stops in a straight line.
+
+Secondly, the MRT datasets from LTA DataMall are as of July 2024. They do not account for temporary route diversions or construction, which could affect the real-world application of the analysis.
+
+Lastly, geospatial precision of the data is assumed to be high, but any minor inaccuracies in the mapping of routes may slightly affect the calculated overlap distance.
 
 ### 3.2 Data
 
@@ -102,26 +105,25 @@ Furthermore, we employed [Singapore MRT Map in Folium](https://www.kaggle.com/co
 
 #### **3.2.2 Cleaning** 
 
-- **Add missing stations:** As the Kaggle dataset on MRT stations was not updated to include the recently opened stations on the Thomson-East Coast line as `new_brown_line`, we manually added these missing stations to the dataset, so the visualisation of the MRT routes and the analysis of the overlap distance between bus routes and MRT lines will be more complete.
-  
-- **Geospatial Transformation:** We converted the `Bus Stops` and `Bus Routes` datasets into geospatial data frames (`bus_stops_gdf` and `bus_routes_gdf`) using GeoPandas, defining geometries based on longitude and latitude for each stop. For MRT station exits, we read in spatial data from the `TrainStationExit` shapefile as `train_station_exits_gdf`, allowing us to map out all station exit points.
+Firstly, we had to add the new Thomson-East Coast Line stations to the dataset from Kaggle. As the Kaggle dataset on MRT stations was not updated to include the recently opened stations on the Thomson-East Coast line (`new_brown_line`), we manually added these missing stations to the dataset, so the visualisation of the MRT routes and the analysis of the overlap distance between bus routes and MRT lines will be more complete.
 
-- **Coordinate System Alignment:** To ensure accuracy in distance calculations, we transformed the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto folium maps.
+Secondly, as we were conducting geospatial analysis, we converted the `Bus Stops` and `Bus Routes` datasets into geospatial data frames (`bus_stops_gdf` and `bus_routes_gdf`) using GeoPandas, defining geometries based on longitude and latitude for each stop. For MRT station exits, we read in spatial data from the `TrainStationExit` shapefile as `train_station_exits_gdf`, allowing us to map out all station exit points.
+
+Thirdly, to ensure accuracy in distance calculations, we reprojected the bus routes and train station geodataframes into a common coordinate reference system (CRS), EPSG:3857, suitable for metric distance calculations. For our visualisation, we utilised the EPSG:4326 CRS instead, which allowed us to accurately plot our bus and MRT routes onto folium maps.
 
 #### **3.2.3 Features** 
 
 * `bus_route_combined` : We aggregated bus stops into continuous route lines using the `LineString` function. We grouped the bus stops based on their `ServiceNo` (bus service number) and `Direction` (route direction) attributes to ensure each route was represented as a single, uninterrupted LineString geometry. 
 
-* `mrt_stations_gdf_3857` : GeoDataFrame containing the locations and attributes of MRT stations transformed to the EPSG:3857 coordinate reference system. [KIV]
+* `mrt_stations_gdf_3857` : GeoDataFrame containing the locations and attributes of MRT stations transformed to the EPSG:3857 coordinate reference system. 
 
-* `mrt_stations_3857_2` : We merged the Kaggle dataset with the MRT stations dataset from LTA Datamall, as the Kaggle dataset contained information on the lines that the MRT stations belonged to, and the order of the stations along the line, which we used to supplement the data from LTA Datamall containing the geographic information on the locations of the MRT stations.[KIV]
+* `mrt_stations_3857_2` : We merged the Kaggle dataset with the MRT stations dataset from LTA Datamall, as the Kaggle dataset contained information on the lines that the MRT stations belonged to, and the order of the stations along the line, which we used to supplement the data from LTA Datamall containing the geographic information on the locations of the MRT stations.
 
 #### **3.2.4 Data Analysis** 
 
-* `nearest_train_stations` **Nearest MRT Station Calculation** : 
-For each bus stop, the distance to all MRT station exits was computed using GeoPandas distance calculations. By identifying the nearest MRT station for each stop, we captured each bus stop’s proximity to the MRT network, providing insight into potential redundancies between bus and MRT routes.
+For our preliminary data analysis, we wanted to get a sense of which bus stops were close to MRT station exits. To do so, we computed the distance from each bus stop to all MRT station exits using GeoPandas distance calculations. We then identified which was the nearest MRT station exit to each bus stop and what the distance between them was, in order to capture each bus stop's proximity to the MRT network and provide insight into potential redundancies between bus and MRT routes. This calculation was saved in the `nearest_train_stations` dataframe in the `overlap_distance.ipynb` file. 
 
-* `bus_stops_with_mrt` : Bus stops within a 150-meter radius of any MRT station exit were selected, identifying the areas where bus routes closely parallel MRT lines. These bus stops were flagged as MRT-proximal, allowing for a refined analysis of routes with the greatest overlap.
+After identifying the closest MRT station exit to each bus stop, we filtered out the bus stops that have a distance above 150 meters to the nearest MRT station exit. The remaining bus stops were flagged as MRT-proximal, allowing for a refined analysis of routes with the greatest overlap. This analysis was saved in the `bus_stops_with_mrt` dataframe in the `overlap_distance.ipynb` file.
 
 ### 3.3 Experimental Design
 
@@ -130,53 +132,116 @@ For each bus stop, the distance to all MRT station exits was computed using GeoP
 * *Evaluation: Which evaluation metric did you optimise and assess the model on? Why is this the most appropriate?*
 * *Training: How did you arrive at the final set of hyperparameters? How did you manage imbalanced data or regularisation?*
 
-#### **Overlap Distance Calculation with MRT Stations**
+#### Finding overlap distance between bus routes and MRT lines
 
-`TEL_route` : LineString object is constructed from the centroid coordinates of the brown line stations, representing the overall route of the Thomson-East Coast Line.
+To identify which bus routes run parallel to MRT lines, we constructed an algorithm to find the length of the bus route that overlaps with a buffered region of each MRT line. To explain our algorithm further, we will use the Thomson-East Coast Line as an example
 
-`buffered_TEL` : A buffer of 150 meters is applied to the `TEL_route` which broadens the line for intersection analysis with bus routes.
+First, we constructed a LineString object from the centroid coordinates of the MRT stations along the Thomson-East Coast Line (`TEL_route`), to represent the overall route of the line. Next, we added a buffer of 150 metres to the line, making it a polygon (`buffered_TEL`). After getting the polygon, we found the distance of each bus route that falls inside this polygon, which we took as the overlap distance between the bus routes and the Thomson-East Coast line, and saved the overlap distances for each bus route in the `overlap_distance_TEL` dataframe. From this dataframe, we filtered out the bus routes that do not overlap with the `buffered_TEL` polygon at all, and kept only the routes that had some overlap, sorting the results in descending order. This filtered data was saved in the `bus_routes_overlap` dataframe.
 
-`overlap_distance_brown`: GeoDataFrame that contains a list of overlap distances converted from `overlap_distance_output_brown`, which calculates the intersection between the buffered brown line and each bus route geometry. The result includes bus service number, direction, overlap distance, MRT line name, and intersection geometry.
+We repeated this process for all the other MRT lines (Downtown Line, North-East Line, North-South Line, East-West Line and Circle Line). In the end, we got the top 5 bus routes with the highest overlap distance with MRT lines and the MRT line that they overlap the most with from the `bus_routes_overlap` dataframe, which were 67, 36, 63, 23 and 2. 
 
-`bus_routes_overlap`: GeoDataFrame which include only those bus routes with a positive overlap distance with the brown line, sorting the results in descending order based on the overlap distance.
+| Bus Route | MRT Line | Overlap Distance (m) |
+|-----------|-----------------------|---------------------|
+| Bus 67    | Downtown Line | 14747.34           |
+| Bus 36  | Thomson-East Coast Line | 13593.10               | 
+| Bus 63  | East-West Line | 	12987.28             | 
+| Bus 23  | Downtown Line | 	12799.11             | 
+| Bus 2  | East-West Line | 	12440.27            | 
 
-We did the same for the other MRT lines such as Downtown Line, North-East Line, East-West Line, Circle Line and North-South Line.
+#### Finding alternative bus routes to further narrow down which bus routes to remove
+
+After we narrowed down to the top 5 bus routes that have the highest overlap distance with MRT lines (target bus routes), we conducted further analysis into whether there are alternative bus routes for each of them. To do so, we tried to find the top 3 bus routes that overlapped with each of the target bus routes to see how much of the target bus route can be replicated by other buses. To explain the algorithm for this analysis, we will first focus on bus route 67.
+
+We extracted the route of Bus 67 from the `bus_routes_combined` dataframe and named it `route_67_line`. Next, we converted the `bus_routes_combined` dataframe into a geodataframe with a CRS of EPSG:3857 (`bus_routes_combined_gdf`). We removed bus 67 and and all the variants of bus 67 from the geodataframe (`bus_routes_combined_gdf_67`). After that, we constructed a loop with 3 iterations. For each iteration, we run through all the bus routes in the `bus_routes_combined_gdf_67` geodataframe to find out the length of intersection between the bus routes and the route of Bus 67, which is the distance where the bus routes exactly overlap with Bus 67. We then picked out the bus route with the highest intersection length (`max_overlap_route`), and the line of the intersection between `max_overlap_route` and Bus 67 (`max_overlap`). We removed this line of intersection (`max_overlap`) from the Bus 67 route before starting the next iteration. In each progressive iteration, we find the top bus route that overlaps with the remaining sections of Bus 67 that did not overlap with the bus routes found in previous iterations. This way, we can find out to what extent different parts of the route of Bus 67 can be replicated with 3 alternative bus routes. The top 3 bus routes and their respective lengths of overlap were saved in the `overlap_routes` dataframe.
+
+After finding the top 3 routes that overlapped the most with Bus 67, we found the bus stops that lie along the line where they overlap. These bus stops would be the bus stops where both Bus 67 and the overlapping bus route stop at. This was mainly for visualisation and validation purposes.
+
+This process of finding alternative bus routes was repeated for each of the other 4 target bus routes. 
+
+These were the results we found.
+
+
 
 ## Section 4: Findings
 
 ### 4.1 Results
 
-### Summary Table
+### Summary Table of Overlap Distance with MRT Lines
 
-| Bus Route | Overlap Distance (m) | Recommended Action | Alternative Route Availability      |
-|-----------|-----------------------|---------------------|-------------------------------------|
-| Bus 67    |14747.34           | Remove Segment     | MRT Downtown Line, Bus 170          |
-| Bus 36  | 13593.10               | Retain             | MRT Downtown Line, Bus 67        |
-| Bus 63  | 	12987.28             | Remove Entirely   | MRT East-West Line, Bus 64 & 518               |
-| Bus 23  | 	12799.11             | Retain   | MRT Downtown Line               |
-| Bus 2  | 	12440.27            | Remove Segment   | MRT East-West Line               |
+| Bus Route | MRT Line | Overlap Distance (m) | Recommended Action | Alternative Route Availability      |
+|-----------|---------------|-----------------------|---------------------|-------------------------------------|
+| Bus 67    | Downtown Line | 14747.34           | Remove Segment from Choa Chu Kang to Newton    | MRT Downtown Line, Bus 170          |
+| Bus 36  | Thomson-East Coast Line | 13593.10               | Retain             | MRT Thomson-East Coast Line       |
+| Bus 63  | East-West Line | 	12987.28             | Remove Entirely   | MRT East-West Line, Bus 64 & 518               |
+| Bus 23  | Downtown Line | 	12799.11             | Retain   | MRT Downtown Line               |
+| Bus 2  | East-West Line | 	12440.27            | Remove Segment from Kampong Bahru to Tanah Merah  | MRT East-West Line, Bus 12 & 67               |
 
-Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Bus 63 shows considerable overlap with the East-West Line and multiple buses, and due to ample alternative coverage, we recommend removing it entirely to streamline the network. (UPDATE FOR BUS 2) 
+
+### Summary Table of Alternative Bus Routes
+
+- **Bus 67 (total length: 31083.48 m)**
+
+| Bus Route | Intersection Length (m) |
+|-----------|-----------------------|
+| Bus 170    | 14543.08         |
+| Bus 2  | 7680.61               | 
+| Bus 28  | 	2620.83             | 
+
+Remaining un-overlapped length : 6238.97 m
+
+- **Bus 36 (total length: 44666.59 m)**
+
+| Bus Route | Intersection Length (m) |
+|-----------|-----------------------|
+| Bus 111    | 7028.45         |
+| Bus 110  | 5088.40               | 
+| Bus 47  | 	3949.24             | 
+
+Remaining un-overlapped length : 29481.32 m
+
+- **Bus 63 (total length: 33391.59 m)**
+
+| Bus Route | Intersection Length (m) |
+|-----------|-----------------------|
+| Bus 51    |  7008.85         |
+
+Remaining un-overlapped length : 26947.51 m
+
+- **Bus 23 (total length: 27880.31 m)**
+
+| Bus Route | Intersection Length (m) |
+|-----------|-----------------------|
+| Bus 518    | 7088.15         |
+| Bus 64  | 5537.79               | 
+| Bus 67  | 	982.75             | 
+
+Remaining un-overlapped length : 14271.61 m
+
+- **Bus 2 (total length: 24346.31 m)**
+
+| Bus Route | Intersection Length (m) |
+|-----------|-----------------------|
+| Bus 67    | 7717.78         |
+| Bus 9  | 4355.55               | 
+| Bus 12  | 	4316.64             | 
+
+Remaining un-overlapped length : 7956.34 m
+
+
+Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Also, there are no alternative bus routes that cover a significant portion of Bus 36, so commuters will be very inconvenienced with having to make many transfers if they want to travel by bus along the Bus 36 route. Bus 63 shows considerable overlap with the East-West Line. Although from our algorithm, it appears that there are no alternative bus routes for Bus 63, upon further checking, we found that there are multiple buses that follow very similar routes even though they do not replicate the route exactly. Thus, due to ample alternative coverage, we recommend removing it entirely to streamline the network. Bus 23 also lacks good alternative options of buses, and the top 3 bus routes that overlap Bus 23 do not intersect much with each other, making it very troublesome for commuters to transfer. Bus 2 overlaps heavily with the East-West Line, and has alternative bus routes that overlap a significant portion of the route from Kampong Bahru Terminal to Tanah Merah Station, and connect with each other. Thus, as commuters have many alternative MRT and bus options, we recommend removing a segment of Bus 2.
 
 ### 4.2 Discussion
 
 #### Business Value of Results
 
-The overlap analysis between bus routes and MRT lines provides actionable insights to optimize the public transport network. By removing redundant segments of Bus 67, 63 and 2,  we can achieve:
-
-- **Cost Savings**: Reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas.
-- **Improved Network Efficiency**: Streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage.
-- **Alignment with Commuter Needs**: By selectively retaining key routes (e.g., Bus 170) that serve stops between MRT stations, we maintain accessibility for commuters without unnecessary redundancy.
+The overlap analysis between bus routes and MRT lines provides actionable insights to optimize the public transport network. By removing redundant segments of Bus 67, 63 and 2,  we can achieve 3 goals. Firstly, as reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas, it will result in cost savings. Secondly, streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage, resulting in improved network efficiency. Lastly, by selectively retaining key routes (e.g., Bus 170) that serve stops between MRT stations, we maintain accessibility for commuters without unnecessary redundancy, allowing MOT to align with commuter needs.
 
 This data-driven approach addresses the business goal of optimizing the network in a cost-effective and efficient way.
 
 #### Key Issues
 
-1. **Interpretability**: The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify.
-   
-2. **Fairness**: Adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport.
-
-3. **Deployability**: Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs.
+We also focused on some key issues when developing our approach. Firstly, we made sure that our results were interpretable. The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify. Secondly, we wanted to ensure fairness to commuters when removing or rerouting bus routes, so adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport.
+Thirdly, we focused on the deployability of our recommendations. Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs.
 
 ### 4.3 Recommendations
 
@@ -192,6 +257,6 @@ Deploying these changes involves:
 
 #### Additional Recommendations
 
-1. **Extend Analysis to New and Future MRT Lines**: As the Cross Island Line and Jurong Region Line are introduced, apply this overlap analysis to identify additional redundant bus routes and optimize the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
+In the future, we would also want to extend this analysis to new and future MRT lines.  As the Cross Island Line and Jurong Region Line are introduced, apply this overlap analysis to identify additional redundant bus routes and optimize the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
 
-2. **Data Quality Improvement**: Future analyses would benefit from more granular data, such as detailed bus paths and ridership statistics, to improve overlap assessment and better understand commuter demand.
+Also, future analyses would benefit from more granular data, such as detailed bus paths and ridership statistics, to improve overlap assessment and better understand commuter demand.
