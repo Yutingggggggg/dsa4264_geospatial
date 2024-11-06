@@ -43,7 +43,7 @@ Meeting these criteria will demonstrate that the project has successfully provid
 
 This project is based on several key assumptions, each of which affects the problem definition, success criteria, and feasibility of our analysis. These assumptions include:
 
-* <b> Data Availability and Accuracy </b> : LTA Datamall data on bus routes and Kaggle data on MRT lines provide sufficient accuracy and detail to identify significant overlap. Since we lack access to internal ridership data, our analysis will depend solely on spatial proximity between bus routes and MRT lines as an indicator of redundancy.
+* <b> Data Availability and Accuracy </b> : LTA Datamall data on bus routes and Kaggle data on MRT lines provide sufficient accuracy and detail to identify significant overlap. Currently, the Passenger Volume by Origin Destination Bus Stops from LTA Datamall provides little value to our analysis as the passenger volume is aggregated across buses that serve a particular route. Since we lack access to internal ridership data for each bus service, our analysis will depend solely on spatial proximity between bus routes and MRT lines as an indicator of redundancy.
 
 * <b> Public Responsiveness to Adjustments </b>: Public will adjust to recommended bus route changes without significant backlash if the adjustments are communicated clearly and effective alternative transport options are available. However, past experiences with route adjustments indicate a risk of public dissatisfaction, which could impact the feasibility of proposed changes.
 
