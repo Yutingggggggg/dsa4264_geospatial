@@ -127,7 +127,7 @@ After identifying the closest MRT station exit to each bus stop, we filtered out
 
 #### Finding overlap distance between bus routes and MRT lines
 
-To identify which bus routes run parallel to MRT lines, we constructed an algorithm to find the length of the bus route that overlaps with a buffered region of each MRT line. To explain our algorithm further, we will use the Thomson-East Coast Line as an example.
+To identify which bus routes run parallel to MRT lines, we constructed an algorithm to find the length of the bus route that overlaps with a buffered region of each MRT line. To explain our algorithm further, we will use the Thomson-East Coast Line as an example
 
 First, we constructed a LineString object from the centroid coordinates of the MRT stations along the Thomson-East Coast Line (`TEL_route`), to represent the overall route of the line. Next, we added a buffer of 150 metres to the line, making it a polygon (`buffered_TEL`). After getting the polygon, we found the distance of each bus route that falls inside this polygon, which we took as the overlap distance between the bus routes and the Thomson-East Coast line, and saved the overlap distances for each bus route in the `overlap_distance_TEL` dataframe. From this dataframe, we filtered out the bus routes that do not overlap with the `buffered_TEL` polygon at all, and kept only the routes that had some overlap, sorting the results in descending order. This filtered data was saved in the `bus_routes_overlap` dataframe.
 
@@ -169,17 +169,6 @@ These were the results we found.
 | Bus 23  | Downtown Line | 	12799.11             | Retain   | MRT Downtown Line               |
 | Bus 2  | East-West Line | 	12440.27            | Remove Segment from Kampong Bahru to Tanah Merah  | MRT East-West Line, Bus 12 & 67               |
 
-*Length is calculated using the bus route constructed using GeoPandas, and so may be slightly inaccurate compared to the actual length of the bus route
-
-### Summary Table of Length of Bus Route Removed
-
-| Bus Route | Recommended Action | Length removed (km)     | Proportion of Bus Route removed
-|-----------|---------------|-----------------------|---------------------|
-| Bus 67    | Remove Segment from Choa Chu Kang to Newton    | 15.7 |      0.47     |
-| Bus 63  | Remove Entirely   | 38.9 | 1.0           |
-| Bus 2  | Remove Segment from Kampong Bahru to Tanah Merah  | 15.4 | 0.58               |
-
-*Length is found following the bus routes data from LTA DataMall, and so should be accurate to the actual route distance
 
 ### Summary Table of Alternative Bus Routes
 
@@ -231,8 +220,6 @@ Remaining un-overlapped length : 14271.61 m
 
 Remaining un-overlapped length : 7956.34 m
 
-*Length is calculated using the bus route constructed using GeoPandas, and so may be slightly inaccurate compared to the actual length of the bus route
-
 
 Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Also, there are no alternative bus routes that cover a significant portion of Bus 36, so commuters will be very inconvenienced with having to make many transfers if they want to travel by bus along the Bus 36 route. Bus 63 shows considerable overlap with the East-West Line. Although from our algorithm, it appears that there are no alternative bus routes for Bus 63, upon further checking, we found that there are multiple buses that follow very similar routes even though they do not replicate the route exactly. Thus, due to ample alternative coverage, we recommend removing it entirely to streamline the network. Bus 23 also lacks good alternative options of buses, and the top 3 bus routes that overlap Bus 23 do not intersect much with each other, making it very troublesome for commuters to transfer. Bus 2 overlaps heavily with the East-West Line, and has alternative bus routes that overlap a significant portion of the route from Kampong Bahru Terminal to Tanah Merah Station, and connect with each other. Thus, as commuters have many alternative MRT and bus options, we recommend removing a segment of Bus 2.
 
@@ -252,7 +239,7 @@ We focused on some key issues when developing our approach. Firstly, we made sur
 
 #### 4.3.1 Next Steps
 
-We recommend implementing adjustments to Bus 67, Bus 63 and Bus 2 to reduce redundancy with MRT lines. These changes should be communicated clearly to commuters to ensure a smooth transition.
+We recommend implementing adjustments to Bus 67 and potentially Bus 63 to reduce redundancy with MRT lines. These changes should be communicated clearly to commuters to ensure a smooth transition.
 
 #### 4.3.2 Deployment Considerations
 
@@ -262,6 +249,6 @@ Deploying these changes involves:
 
 #### 4.3.3 Additional Recommendations
 
-In the future, we would also want to extend this analysis to new and future MRT lines.  As the Cross Island Line and Jurong Region Line are introduced, we aim to apply this overlap analysis to identify additional redundant bus routes and optimise the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
+In the future, we would also want to extend this analysis to new and future MRT lines.  As the Cross Island Line and Jurong Region Line are introduced, apply this overlap analysis to identify additional redundant bus routes and optimise the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
 
 Also, future analyses would benefit from more granular data, such as detailed bus paths and ridership statistics, to improve overlap assessment and better understand commuter demand.
