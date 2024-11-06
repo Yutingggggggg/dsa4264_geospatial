@@ -125,7 +125,7 @@ After identifying the closest MRT station exit to each bus stop, we filtered out
 
 ### 3.3 Experimental Design
 
-#### Finding overlap distance between bus routes and MRT lines
+#### 3.3.1 Finding overlap distance between bus routes and MRT lines
 
 To identify which bus routes run parallel to MRT lines, we constructed an algorithm to find the length of the bus route that overlaps with a buffered region of each MRT line. To explain our algorithm further, we will use the Thomson-East Coast Line as an example.
 
@@ -141,7 +141,7 @@ We repeated this process for all the other MRT lines (Downtown Line, North-East 
 | Bus 23  | Downtown Line | 	12799.11             | 
 | Bus 2  | East-West Line | 	12440.27            | 
 
-#### Finding alternative bus routes to further narrow down which bus routes to remove
+#### 3.3.2 Finding alternative bus routes to further narrow down which bus routes to remove
 
 After we narrowed down to the top 5 bus routes that have the highest overlap distance with MRT lines (target bus routes), we conducted further analysis into whether there are alternative bus routes for each of them. To do so, we tried to find the top 3 bus routes that overlapped with each of the target bus routes to see how much of the target bus route can be replicated by other buses. To explain the algorithm for this analysis, we will first focus on bus route 67.
 
@@ -159,7 +159,7 @@ These were the results we found.
 
 ### 4.1 Results
 
-### Summary Table of Overlap Distance with MRT Lines
+### 4.1.1 Summary Table of Overlap Distance with MRT Lines
 
 | Bus Route | MRT Line | Overlap Distance (m) | Recommended Action | Alternative Route Availability      |
 |-----------|---------------|-----------------------|---------------------|-------------------------------------|
@@ -171,7 +171,7 @@ These were the results we found.
 
 *Length is calculated using the bus route constructed using GeoPandas, and so may be slightly inaccurate compared to the actual length of the bus route
 
-### Summary Table of Length of Bus Route Removed
+### 4.1.2 Summary Table of Length of Bus Route Removed
 
 | Bus Route | Recommended Action | Length removed (km)     | Proportion of Bus Route removed
 |-----------|---------------|-----------------------|---------------------|
@@ -181,7 +181,7 @@ These were the results we found.
 
 *Length is found following the bus routes data from LTA DataMall, and so should be accurate to the actual route distance
 
-### Summary Table of Alternative Bus Routes
+### 4.1.3 Summary Table of Alternative Bus Routes
 
 - **Bus 67 (total length: 31083.48 m)**
 
@@ -231,8 +231,7 @@ Remaining un-overlapped length : 14271.61 m
 
 Remaining un-overlapped length : 7956.34 m
 
-*Length is calculated using the bus route constructed using GeoPandas, and so may be slightly inaccurate compared to the actual length of the bus route
-
+Length is calculated using the bus route constructed using GeoPandas, and so may be slightly inaccurate compared to the actual length of the bus route
 
 Bus 67 has a significant overlap with the Downtown Line. For efficiency, we recommend removing a segment of this route, as it’s well-covered by both MRT and Bus 170. Bus 36, although it has some overlap, is essential to retain as it provides direct access to the airport, a critical route for travelers. Also, there are no alternative bus routes that cover a significant portion of Bus 36, so commuters will be very inconvenienced with having to make many transfers if they want to travel by bus along the Bus 36 route. Bus 63 shows considerable overlap with the East-West Line. Although from our algorithm, it appears that there are no alternative bus routes for Bus 63, upon further checking, we found that there are multiple buses that follow very similar routes even though they do not replicate the route exactly. Thus, due to ample alternative coverage, we recommend removing it entirely to streamline the network. Bus 23 also lacks good alternative options of buses, and the top 3 bus routes that overlap Bus 23 do not intersect much with each other, making it very troublesome for commuters to transfer. Bus 2 overlaps heavily with the East-West Line, and has alternative bus routes that overlap a significant portion of the route from Kampong Bahru Terminal to Tanah Merah Station, and connect with each other. Thus, as commuters have many alternative MRT and bus options, we recommend removing a segment of Bus 2.
 
