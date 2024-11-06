@@ -1,6 +1,6 @@
 # Technical Report
 
-**Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimizations**  
+**Project: Comprehensive Analysis of Parallel Bus Routes to MRT Lines for Service Optimisations**  
 **Members: Choo Jin Yi, Jiya Dutta, Kang Yu Ting, Lian Ko-Shyan, Toh Kai Lin**  
 Last updated on 6/11/2024
 
@@ -8,21 +8,21 @@ Last updated on 6/11/2024
 
 In recent years, the launch of new Mass Rapid Transit (MRT) lines, including the Downtown Line and Thomson-East Coast Line, has resulted in a decline in ridership for certain trunk bus services — long routes that connect various neighborhoods across Singapore.
 
-This project was initiated to identify bus routes that run closely parallel MRT lines, allowing LTA to prioritize potential adjustments for cost-effectiveness and enhanced commuter experience.
+This project was initiated to identify bus routes that run closely parallel MRT lines, allowing LTA to prioritise potential adjustments for cost-effectiveness and enhanced commuter experience.
 
 ## Section 2: Scope
 
 ### 2.1 Problem
 
-The Ministry of Transport’s (MOT) Land Division, specifically the Public Transportation team, is responsible for overseeing the planning and optimization of public transportation routes in Singapore. Due to budget constraints, it’s crucial for the team to ensure that public transport resources are allocated efficiently. However, the introduction of new MRT lines, such as the Downtown Line and Thomson-East Coast Line, has resulted in decreased ridership on certain trunk bus services, which are long bus routes connecting various neighborhoods across Singapore. Some of these services are now underutilized, as commuters prefer the faster and more predictable MRT options.
+The Ministry of Transport’s (MOT) Land Division, specifically the Public Transportation team, is responsible for overseeing the planning and optimisation of public transportation routes in Singapore. Due to budget constraints, it’s crucial for the team to ensure that public transport resources are allocated efficiently. However, the introduction of new MRT lines, such as the Downtown Line and Thomson-East Coast Line, has resulted in decreased ridership on certain trunk bus services, which are long bus routes connecting various neighborhoods across Singapore. Some of these services are now underutilised, as commuters prefer the faster and more predictable MRT options.
 
-The challenge facing the Public Transportation team is to identify and streamline bus routes that significantly overlap with MRT lines. Failing to optimize these bus routes will lead to wasted resources, limiting the team's ability to finance new routes that could better serve unmet commuter needs. If left unaddressed, this inefficiency could result in a misallocation of MOT’s limited budget, potentially impacting the overall effectiveness of Singapore’s public transport system.
+The challenge facing the Public Transportation team is to identify and streamline bus routes that significantly overlap with MRT lines. Failing to optimise these bus routes will lead to wasted resources, limiting the team's ability to finance new routes that could better serve unmet commuter needs. If left unaddressed, this inefficiency could result in a misallocation of MOT’s limited budget, potentially impacting the overall effectiveness of Singapore’s public transport system.
 
 Data science provides an efficient and systematic solution to identifying route redundancies within Singapore’s complex transport network. Manually analyzing bus and MRT overlaps would be both time-consuming and prone to error. By using data science techniques, we can process large-scale geospatial data to accurately calculate overlap distances within defined buffer zones of MRT lines, allowing us to quantify which bus routes duplicate MRT lines, and to what extent.
 
-This approach not only provides clear, data-driven insights for potential route adjustments but also allows us to incorporate factors like accessibility of alternative routes and commuter convenience into our recommendations. This leads to more balanced, informed decisions that prioritize commuter needs.
+This approach not only provides clear, data-driven insights for potential route adjustments but also allows us to incorporate factors like accessibility of alternative routes and commuter convenience into our recommendations. This leads to more balanced, informed decisions that prioritise commuter needs.
 
-Furthermore, data science ensures scalability and adaptability. As Singapore’s MRT network expands with new lines like the Jurong Region and Cross Island Lines, the same data-driven approach can be readily applied to assess overlaps, ensuring that our public transport system remains optimized, cost-effective, and responsive to future commuter demands.
+Furthermore, data science ensures scalability and adaptability. As Singapore’s MRT network expands with new lines like the Jurong Region and Cross Island Lines, the same data-driven approach can be readily applied to assess overlaps, ensuring that our public transport system remains optimised, cost-effective, and responsive to future commuter demands.
 
 ### 2.2 Success Criteria
 
@@ -32,11 +32,11 @@ Success for this data science project will be measured through both business and
 
 <b>Operational Goal</b>: Streamline public transport by eliminating redundancy and ensuring that re-routed or adjusted bus services still maintain commuter convenience without creating significant disruption. This will be assessed by:
 
-* <b> Route Overlap Distance </b>: Using geospatial analysis, calculate the overlap distance of each bus route within a 150-meter buffer around MRT lines. Routes with the highest overlap distances will be prioritized for review as they represent potential redundant routes in the public transport network. 
+* <b> Route Overlap Distance </b>: Using geospatial analysis, calculate the overlap distance of each bus route within a 150-meter buffer around MRT lines. Routes with the highest overlap distances will be prioritised for review as they represent potential redundant routes in the public transport network. 
 
 * <b> Alternative Access Feasibility </b>: For each route identified, evaluate the accessibility and convenience of alternative transport options, such as other bus routes or MRT stations. Adjustments will only be recommended if these alternatives are reasonably convenient, minimizing impact on commuter experience.
 
-Meeting these criteria will demonstrate that the project has successfully provided actionable insights for MOT and LTA to optimize Singapore’s public transportation system effectively.
+Meeting these criteria will demonstrate that the project has successfully provided actionable insights for MOT and LTA to optimise Singapore’s public transportation system effectively.
 
 
 ### 2.3 Assumptions
@@ -55,7 +55,7 @@ This project is based on several key assumptions, each of which affects the prob
 
 
 #### 3.1.1 Definition of Key Variables and Terms
-We defined **Overlap Distance** as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line. The **Buffer Zone** used is a 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes. The [Land Transport Master Plan 2040 ](https://www.lta.gov.sg/content/ltagov/en/who_we_are/our_work/land_transport_master_plan_2040.html)(LTMP 2040) focuses on creating a more integrated and sustainable transport system. Although specific buffer zone distances aren't always detailed, the plan emphasizes enhancing public transport connectivity and reducing travel times, which aligns with our use of the buffer zone. Lastly, **Redundant Route** is defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
+We defined **Overlap Distance** as the total length (in meters) of each bus route that falls within a 150-meter buffer zone around MRT lines. This variable quantifies the extent to which a bus route runs parallel to an MRT line. The **Buffer Zone** used is a 150-meter radius around MRT lines, which we assume sufficiently captures potential redundancies in coverage by nearby bus routes. The [Land Transport Master Plan 2040 ](https://www.lta.gov.sg/content/ltagov/en/who_we_are/our_work/land_transport_master_plan_2040.html)(LTMP 2040) focuses on creating a more integrated and sustainable transport system. Although specific buffer zone distances aren't always detailed, the plan emphasises enhancing public transport connectivity and reducing travel times, which aligns with our use of the buffer zone. Lastly, **Redundant Route** is defined as any portion of a bus route that overlaps significantly with an MRT line within the buffer zone, making it a candidate for potential rerouting.
 
 #### 3.1.2 Features Available / Unavailable
 
@@ -72,7 +72,7 @@ Our first hypothesis is that bus routes with high overlap distances are likely r
 
 Our second hypothesis is that a buffer zone of 150 meters is adequate for our current purposes to capture meaningful overlap that would impact commuter convenience and route redundancy. We chose a buffer zone of 150 meters as according to a statement made by the Minister for Transport, the median distance between an MRT station exit and the bus stop is 40 metres for the newer Downtown and Thomson-East Coast Lines. However, we had to be careful about being too strict to ensure that we do not exclude bus stops that may be further than 40 metres, especially for the older MRT lines. Also, as our analysis used the centroids of the MRT stations and not the specific exit locations, we thought it was reasonable to increase the buffer zone to account for this distance from the center of the MRT station to the exits. We also made sure not to be too generous, so as to avoid including bus stops that were not actually parallel to the MRT line. 
 
-Our last hypothesis is that alternative routes or transport options are available for redundant bus routes, and work equally well to serve commuters' needs, which minimizes the impact on commuter access if these routes are removed or rerouted. While the redundant bus routes run parallel to MRT lines, giving commuters an alternative way to get to the MRT stations along the route, commuters may need access to bus stops in between MRT stations, and some commuters might simply prefer taking buses to MRT. Thus, we thought it would be important to ensure that there are alternative bus routes for the redundant bus routes before we choose to remove them.
+Our last hypothesis is that alternative routes or transport options are available for redundant bus routes, and work equally well to serve commuters' needs, which minimises the impact on commuter access if these routes are removed or rerouted. While the redundant bus routes run parallel to MRT lines, giving commuters an alternative way to get to the MRT stations along the route, commuters may need access to bus stops in between MRT stations, and some commuters might simply prefer taking buses to MRT. Thus, we thought it would be important to ensure that there are alternative bus routes for the redundant bus routes before we choose to remove them.
 
 #### 3.1.5 Data Quality and Limitations
 
@@ -225,30 +225,30 @@ Bus 67 has a significant overlap with the Downtown Line. For efficiency, we reco
 
 ### 4.2 Discussion
 
-#### Business Value of Results
+#### 4.2.1 Business Value of Results
 
-The overlap analysis between bus routes and MRT lines provides actionable insights to optimize the public transport network. By removing redundant segments of Bus 67, 63 and 2,  we can achieve 3 goals. Firstly, as reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas, it will result in cost savings. Secondly, streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage, resulting in improved network efficiency. Lastly, by selectively retaining key routes (e.g., Bus 170) that serve stops between MRT stations, we maintain accessibility for commuters without unnecessary redundancy, allowing MOT to align with commuter needs.
+The overlap analysis between bus routes and MRT lines provides actionable insights to optimise the public transport network. By removing redundant segments of Bus 67, 63 and 2,  we can achieve 3 goals. Firstly, as reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas, it will result in cost savings. Secondly, streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage, resulting in improved network efficiency. Lastly, by selectively retaining key routes (e.g., Bus 170) that serve stops between MRT stations, we maintain accessibility for commuters without unnecessary redundancy, allowing MOT to align with commuter needs.
 
 This data-driven approach addresses the business goal of optimizing the network in a cost-effective and efficient way.
 
-#### Key Issues
+#### 4.2.2 Key Issues
 
-We focused on some key issues when developing our approach. Firstly, we made sure that our results were interpretable. The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify. The distances displayed in an easy-to-read summary table are complemented with the visualisations on the `overlap_map` outputs, ensuring that our findings are clearly interpretable. The toggling of layers between overlap sections, MRT line and bus route (with blue pins on the map) allow stakeholders to glance at different sections as needed. Secondly, we wanted to ensure fairness to commuters when removing or rerouting bus routes, so adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport. Thirdly, we focused on the deployability of our recommendations. Route changes require clear public communication to minimize disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs. We ensured to cover all bases by considering different segments of each bus route and its impact on commuter convenience and overall acccessibility. 
+We focused on some key issues when developing our approach. Firstly, we made sure that our results were interpretable. The overlap distance metric provides a clear, quantifiable basis for route adjustments, making the findings easy to communicate and justify. The distances displayed in an easy-to-read summary table are complemented with the visualisations on the `overlap_map` outputs, ensuring that our findings are clearly interpretable. The toggling of layers between overlap sections, MRT line and bus route (with blue pins on the map) allow stakeholders to glance at different sections as needed. Secondly, we wanted to ensure fairness to commuters when removing or rerouting bus routes, so adjustments are made to avoid disproportionately impacting areas with limited transit alternatives, ensuring fair access to public transport. Thirdly, we focused on the deployability of our recommendations. Route changes require clear public communication to minimise disruption, with plans for periodic reviews to adapt to future MRT developments and commuter needs. We ensured to cover all bases by considering different segments of each bus route and its impact on commuter convenience and overall acccessibility. 
 
 ### 4.3 Recommendations
 
-#### Next Steps
+#### 4.3.1 Next Steps
 
 We recommend implementing adjustments to Bus 67 and potentially Bus 63 to reduce redundancy with MRT lines. These changes should be communicated clearly to commuters to ensure a smooth transition.
 
-#### Deployment Considerations
+#### 4.3.2 Deployment Considerations
 
 Deploying these changes involves:
 - **Updating Public Transport Apps**: Ensure all bus route updates are reflected in apps like MyTransport.SG and Google Maps to avoid confusion among users.
 - **Public Communication**: Inform commuters about the route changes through announcements in public transport apps, signage at affected bus stops, and media channels.
 
-#### Additional Recommendations
+#### 4.3.3 Additional Recommendations
 
-In the future, we would also want to extend this analysis to new and future MRT lines.  As the Cross Island Line and Jurong Region Line are introduced, apply this overlap analysis to identify additional redundant bus routes and optimize the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
+In the future, we would also want to extend this analysis to new and future MRT lines.  As the Cross Island Line and Jurong Region Line are introduced, apply this overlap analysis to identify additional redundant bus routes and optimise the network. Regular reviews should be conducted to keep the public transport network aligned with new developments and evolving commuter patterns.
 
 Also, future analyses would benefit from more granular data, such as detailed bus paths and ridership statistics, to improve overlap assessment and better understand commuter demand.
