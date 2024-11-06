@@ -18,7 +18,7 @@ The Ministry of Transport’s (MOT) Land Division, specifically the Public Trans
 
 The challenge facing the Public Transportation team is to identify and streamline bus routes that significantly overlap with MRT lines. Failing to optimise these bus routes will lead to wasted resources, limiting the team's ability to finance new routes that could better serve unmet commuter needs. If left unaddressed, this inefficiency could result in a misallocation of MOT’s limited budget, potentially impacting the overall effectiveness of Singapore’s public transport system.
 
-Data science provides an efficient and systematic solution to identifying route redundancies within Singapore’s complex transport network. Manually analyzing bus and MRT overlaps would be both time-consuming and prone to error. By using data science techniques, we can process large-scale geospatial data to accurately calculate overlap distances within defined buffer zones of MRT lines, allowing us to quantify which bus routes duplicate MRT lines, and to what extent.
+Data science provides an efficient and systematic solution to identifying route redundancies within Singapore’s complex transport network. Manually analysing bus and MRT overlaps would be both time-consuming and prone to error. By using data science techniques, we can process large-scale geospatial data to accurately calculate overlap distances within defined buffer zones of MRT lines, allowing us to quantify which bus routes duplicate MRT lines, and to what extent.
 
 This approach not only provides clear, data-driven insights for potential route adjustments but also allows us to incorporate factors like accessibility of alternative routes and commuter convenience into our recommendations. This leads to more balanced, informed decisions that prioritise commuter needs.
 
@@ -26,7 +26,7 @@ Furthermore, data science ensures scalability and adaptability. As Singapore’s
 
 ### 2.2 Success Criteria
 
-Success for this data science project will be measured through both business and operational outcomes, aimed at optimizing public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation, cut costs and meet public demand in underserved areas.
+Success for this data science project will be measured through both business and operational outcomes, aimed at optimising public transport resources by identifying overlapping bus routes for potential adjustments. Achieving these outcomes will allow the Ministry of Transport's (MOT) Public Transportation team to improve resource allocation, cut costs and meet public demand in underserved areas.
 
 <b>Business Goal</b>: Identify 3 bus routes that significantly overlap with MRT lines for partial reroute or adjustment. This will allow MOT to free up funding and redirect resources.
 
@@ -34,7 +34,7 @@ Success for this data science project will be measured through both business and
 
 * <b> Route Overlap Distance </b>: Using geospatial analysis, calculate the overlap distance of each bus route within a 150-meter buffer around MRT lines. Routes with the highest overlap distances will be prioritised for review as they represent potential redundant routes in the public transport network. 
 
-* <b> Alternative Access Feasibility </b>: For each route identified, evaluate the accessibility and convenience of alternative transport options, such as other bus routes or MRT stations. Adjustments will only be recommended if these alternatives are reasonably convenient, minimizing impact on commuter experience.
+* <b> Alternative Access Feasibility </b>: For each route identified, evaluate the accessibility and convenience of alternative transport options, such as other bus routes or MRT stations. Adjustments will only be recommended if these alternatives are reasonably convenient, minimising impact on commuter experience.
 
 Meeting these criteria will demonstrate that the project has successfully provided actionable insights for MOT and LTA to optimise Singapore’s public transportation system effectively.
 
@@ -241,7 +241,7 @@ Bus 67 has a significant overlap with the Downtown Line. For efficiency, we reco
 
 The overlap analysis between bus routes and MRT lines provides actionable insights to optimise the public transport network. By removing redundant segments of Bus 67, 63 and 2,  we can achieve 3 goals. Firstly, as reducing redundant segments lowers operational costs, allowing resources to be reallocated to other routes or underserved areas, it will result in cost savings. Secondly, streamlining routes to avoid duplication with MRT lines enhances the overall transport network, enabling buses to focus on areas outside MRT coverage, resulting in improved network efficiency. Lastly, by selectively retaining key routes (e.g., Bus 170) that serve stops between MRT stations, we maintain accessibility for commuters without unnecessary redundancy, allowing MOT to align with commuter needs.
 
-This data-driven approach addresses the business goal of optimizing the network in a cost-effective and efficient way.
+This data-driven approach addresses the business goal of optimising the network in a cost-effective and efficient way.
 
 #### 4.2.2 Key Issues
 
